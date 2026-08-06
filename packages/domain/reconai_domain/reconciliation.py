@@ -5,7 +5,7 @@ from typing import Literal
 
 from .money import Money
 
-WorkflowStatus = Literal["MATCHED", "REVIEW_REQUIRED"]
+WorkflowStatus = Literal["MATCHED", "PARTIAL_REVIEW", "REVIEW_REQUIRED", "VALIDATION_FAILED"]
 
 
 @dataclass(frozen=True)
@@ -16,6 +16,8 @@ class ReconciliationInput:
     payment_received: Money
     authorized_promotion: Money
     promotion_code: str | None = None
+    review_reason: str | None = None
+    validation_error: str | None = None
 
 
 @dataclass(frozen=True)
@@ -33,6 +35,7 @@ class ReconciliationResult:
     matched_cents: int
     deduction: DeductionOutcome
     rule_codes: tuple[str, ...]
+    review_reason: str | None = None
     algorithm_version: str = "reconai.rules.v1"
 
 
@@ -44,7 +47,7 @@ def reconcile_payment(input_data: ReconciliationInput) -> ReconciliationResult:
     invoice_total._check_currency(authorized_promotion)
 
     if payment_received.amount_cents > invoice_total.amount_cents:
-        raise ValueError("payment cannot exceed invoice total in Phase 0")
+        raise ValueError("payment cannot exceed invoice total")
 
     claimed_deduction = invoice_total - payment_received
     validated_cents = min(claimed_deduction.amount_cents, authorized_promotion.amount_cents)
@@ -58,8 +61,24 @@ def reconcile_payment(input_data: ReconciliationInput) -> ReconciliationResult:
         rule_codes.append("PROMOTION_VALIDATED")
     if unexplained.amount_cents:
         rule_codes.append("UNEXPLAINED_DEDUCTION_REVIEW")
+    if input_data.review_reason:
+        rule_codes.append(f"REVIEW_SIGNAL:{input_data.review_reason}")
+    if input_data.validation_error:
+        rule_codes.append(f"VALIDATION_ERROR:{input_data.validation_error}")
 
-    status: WorkflowStatus = "REVIEW_REQUIRED" if unexplained.amount_cents else "MATCHED"
+    status: WorkflowStatus
+    review_reason = input_data.review_reason
+    if input_data.validation_error:
+        status = "VALIDATION_FAILED"
+        review_reason = input_data.validation_error
+    elif input_data.review_reason == "partial_payment_open_balance":
+        status = "PARTIAL_REVIEW"
+    elif input_data.review_reason or unexplained.amount_cents:
+        status = "REVIEW_REQUIRED"
+        if not review_reason and unexplained.amount_cents:
+            review_reason = "unexplained_deduction_amount"
+    else:
+        status = "MATCHED"
 
     return ReconciliationResult(
         invoice_number=input_data.invoice_number,
@@ -72,4 +91,5 @@ def reconcile_payment(input_data: ReconciliationInput) -> ReconciliationResult:
             unexplained_deduction=unexplained,
         ),
         rule_codes=tuple(rule_codes),
+        review_reason=review_reason,
     )
