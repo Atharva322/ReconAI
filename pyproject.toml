@@ -1,6 +1,7 @@
 [tool.pytest.ini_options]
-testpaths = ["packages"]
+testpaths = ["packages", "apps/api/tests"]
 pythonpath = [
+  "apps/api",
   "packages/domain",
   "packages/extraction",
   "packages/benchmark"
