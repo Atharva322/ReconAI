@@ -102,18 +102,18 @@ tests/
 
 ## Phase 0 Acceptance Checklist
 
-- [ ] Domain glossary exists.
-- [ ] Money representation is selected and tested.
-- [ ] Golden financial truth exists as structured data.
-- [ ] Pure reconciliation calculates the golden expected outcome exactly.
-- [ ] At least one generated PDF can be read locally.
-- [ ] Degraded document behavior is explicit, not silently trusted.
-- [ ] Typed extraction contract is prototyped.
-- [ ] PostgreSQL round-trip for money is exact.
-- [ ] FastAPI toolchain boots.
-- [ ] React/TypeScript toolchain boots.
-- [ ] Dataset provenance policy is recorded.
-- [ ] Phase 0 decisions and fallbacks are written down.
+- [x] Domain glossary exists.
+- [x] Money representation is selected and tested.
+- [x] Golden financial truth exists as structured data.
+- [x] Pure reconciliation calculates the golden expected outcome exactly.
+- [x] At least one generated PDF can be read locally.
+- [x] Degraded document behavior is explicit, not silently trusted.
+- [x] Typed extraction contract is prototyped.
+- [x] PostgreSQL round-trip for money is exact.
+- [x] FastAPI toolchain boots.
+- [x] React/TypeScript toolchain boots.
+- [x] Dataset provenance policy is recorded.
+- [x] Phase 0 decisions and fallbacks are written down.
 
 ## Cut Line If Time Gets Tight
 

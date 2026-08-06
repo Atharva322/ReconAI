@@ -1,0 +1,14 @@
+{
+  "scenario_id": "golden_demo_001",
+  "tenant": "Northstar Beverages",
+  "retailer": "Fictional Market Co.",
+  "invoice_number": "NSB-INV-1001",
+  "payment_reference": "PAY-NORTHSTAR-0001",
+  "promotion_code": "PROMO-SUMMER-1000",
+  "invoice_total_cents": 1845000,
+  "payment_received_cents": 1720000,
+  "claimed_deduction_cents": 125000,
+  "authorized_promotion_cents": 100000,
+  "unexplained_deduction_cents": 25000,
+  "expected_workflow": "REVIEW_REQUIRED"
+}
