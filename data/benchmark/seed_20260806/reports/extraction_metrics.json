@@ -1,0 +1,591 @@
+{
+  "scenario_count": 12,
+  "field_count": 72,
+  "matched_fields": 66,
+  "field_exact_match_rate": 0.9166666666666666,
+  "review_required_count": 2,
+  "status_counts": {
+    "invoice:EXTRACTED": 11,
+    "invoice:INSUFFICIENT_EVIDENCE": 1,
+    "remittance:EXTRACTED": 11,
+    "remittance:INSUFFICIENT_EVIDENCE": 1
+  },
+  "field_scores": [
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-6986",
+      "actual": "NSB-INV-6986",
+      "matched": true
+    },
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "12500.00",
+      "actual": "12500.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-6986",
+      "actual": "PAY-NSB-6986",
+      "matched": true
+    },
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-6986",
+      "actual": "NSB-INV-6986",
+      "matched": true
+    },
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "12500.00",
+      "actual": "12500.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s01_6986",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5573",
+      "actual": "NSB-INV-5573",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "8000.00",
+      "actual": "8000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-5573",
+      "actual": "PAY-NSB-5573",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5573",
+      "actual": "NSB-INV-5573",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "6000.00",
+      "actual": "6000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s02_5573",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-7810",
+      "actual": "NSB-INV-7810",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "5500.00",
+      "actual": "5500.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-7810",
+      "actual": "PAY-NSB-7810",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-7810",
+      "actual": "NSB-INV-7810",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "5000.00",
+      "actual": "5000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s03_7810",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "500.00",
+      "actual": "500.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1001",
+      "actual": "NSB-INV-1001",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "18450.00",
+      "actual": "18450.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NORTHSTAR-0001",
+      "actual": "PAY-NORTHSTAR-0001",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1001",
+      "actual": "NSB-INV-1001",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "17200.00",
+      "actual": "17200.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s04_6811",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "1000.00",
+      "actual": "1000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1410",
+      "actual": "NSB-INV-1410",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "14000.00",
+      "actual": "14000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-1410",
+      "actual": "PAY-NSB-1410",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1410",
+      "actual": "NSB-INV-1410",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "14000.00",
+      "actual": "14000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s05_1410",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1600",
+      "actual": "NSB-INV-1600",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "4250.00",
+      "actual": "4250.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-1600",
+      "actual": "PAY-NSB-1600",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-1600",
+      "actual": "NSB-INV-1600",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "4250.00",
+      "actual": "4250.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s06_1600",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-8583",
+      "actual": "NSB-INV-8583",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "3900.00",
+      "actual": "3900.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-8583",
+      "actual": "PAY-NSB-8583",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-8583",
+      "actual": "NSB-INV-8583",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "3900.00",
+      "actual": "3900.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s07_8583",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5471",
+      "actual": "NSB-INV-5471",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "7300.00",
+      "actual": "7300.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-5471",
+      "actual": "PAY-NSB-5471",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5471",
+      "actual": "NSB-INV-5471",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "7300.00",
+      "actual": "7300.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s08_5471",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-7929",
+      "actual": "NSB-INV-7929",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "6600.00",
+      "actual": "6600.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-7929",
+      "actual": "PAY-NSB-7929",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-7929",
+      "actual": "NSB-INV-7929",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "6600.00",
+      "actual": "6600.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s09_7929",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": "0.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-8481",
+      "actual": "NSB-INV-8481",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "10000.00",
+      "actual": "10000.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-8481",
+      "actual": "PAY-NSB-8481",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-8481",
+      "actual": "NSB-INV-8481",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "8750.00",
+      "actual": "8750.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s10_8481",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "500.00",
+      "actual": "500.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-9662",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "2500.00",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-9662",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-9662",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "2500.00",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s11_9662",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "0.00",
+      "actual": null,
+      "matched": false
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "invoice",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5362",
+      "actual": "NSB-INV-5362",
+      "matched": true
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "invoice",
+      "field_name": "invoice_total",
+      "expected": "9100.00",
+      "actual": "9100.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "remittance",
+      "field_name": "payment_reference",
+      "expected": "PAY-NSB-5362",
+      "actual": "PAY-NSB-5362",
+      "matched": true
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "remittance",
+      "field_name": "invoice_number",
+      "expected": "NSB-INV-5362",
+      "actual": "NSB-INV-5362",
+      "matched": true
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "remittance",
+      "field_name": "payment_received",
+      "expected": "8100.00",
+      "actual": "8100.00",
+      "matched": true
+    },
+    {
+      "scenario_id": "s12_5362",
+      "document_type": "remittance",
+      "field_name": "authorized_promotion",
+      "expected": "1000.00",
+      "actual": "1000.00",
+      "matched": true
+    }
+  ]
+}
