@@ -20,4 +20,10 @@ if (!appSource.includes("Northstar Beverages")) {
   throw new Error("Web shell does not expose the seeded demo tenant");
 }
 
-console.log("ReconAI web shell structure OK");
+for (const phrase of ["Review workspace", "Extraction evidence", "Reconciliation", "Audit timeline"]) {
+  if (!appSource.includes(phrase)) {
+    throw new Error(`Review workspace is missing: ${phrase}`);
+  }
+}
+
+console.log("ReconAI review workspace structure OK");

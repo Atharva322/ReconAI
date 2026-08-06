@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import get_settings
+from .demo_data import apply_review_decision, get_review_case
+from .models import ReviewDecisionRequest
 
 
 def create_app() -> FastAPI:
@@ -31,6 +33,14 @@ def create_app() -> FastAPI:
             "name": "Northstar Beverages",
             "mode": "seeded-demo",
         }
+
+    @app.get(f"{settings.api_prefix}/review-cases/golden", tags=["review"])
+    def golden_review_case() -> dict[str, object]:
+        return get_review_case()
+
+    @app.post(f"{settings.api_prefix}/review-cases/golden/decision", tags=["review"])
+    def decide_golden_review_case(request: ReviewDecisionRequest) -> dict[str, object]:
+        return apply_review_decision(request.decision, request.comment)
 
     return app
 
