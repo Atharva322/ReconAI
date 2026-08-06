@@ -1,0 +1,29 @@
+{
+  "generator_version": "phase2.benchmark.v1",
+  "seed": 20260806,
+  "created_at_utc": "2026-08-06T18:56:41+00:00",
+  "dataset_kind": "generated_synthetic",
+  "scenario_count": 12,
+  "splits": {
+    "dev": 3,
+    "eval": 8,
+    "golden_demo": 1
+  },
+  "families": {
+    "S01": "exact invoice payment",
+    "S02": "explicit partial payment",
+    "S03": "payment plus authorized promotion",
+    "S04": "promotion over-claim",
+    "S05": "one payment, multiple invoices",
+    "S06": "duplicate remittance/document",
+    "S07": "unknown invoice reference",
+    "S08": "conflicting retailer/reference",
+    "S09": "missing or low-confidence invoice ID",
+    "S10": "inconsistent arithmetic",
+    "S11": "rotated/noisy scan",
+    "S12": "duplicate deduction claim"
+  },
+  "truth_sha256": "0d2b1cbda97b705c22c7cea23e523400078f7d03fd9f3c494533bb5a9e2b2ab3",
+  "truth_path": "data/benchmark/seed_20260806/ground_truth/scenarios.json",
+  "evidence_path": "data/benchmark/seed_20260806/evidence"
+}
