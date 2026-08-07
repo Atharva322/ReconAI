@@ -4,5 +4,6 @@ pythonpath = [
   "apps/api",
   "packages/domain",
   "packages/extraction",
-  "packages/benchmark"
+  "packages/benchmark",
+  "packages/reliability"
 ]

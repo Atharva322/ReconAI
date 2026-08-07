@@ -1,0 +1,187 @@
+{
+  "valid": true,
+  "metrics": {
+    "ingested_documents": 3,
+    "duplicate_uploads": 1,
+    "processing_attempts": 7,
+    "recovered_after_retry": 1,
+    "failed_documents": 1,
+    "audit_event_count": 22
+  },
+  "records": [
+    {
+      "document_id": "6457953c-1695-5032-bb9a-421f03cebeae",
+      "status": "EXTRACTED",
+      "retry_count": 0,
+      "last_error": null
+    },
+    {
+      "document_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "status": "EXTRACTED",
+      "retry_count": 1,
+      "last_error": null
+    },
+    {
+      "document_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "status": "FAILED",
+      "retry_count": 2,
+      "last_error": "permanent extractor failure"
+    }
+  ],
+  "audit_events": [
+    {
+      "action": "document_uploaded",
+      "entity_id": "6457953c-1695-5032-bb9a-421f03cebeae",
+      "correlation_id": "corr-stable",
+      "detail": "New document accepted for processing.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "duplicate_upload_detected",
+      "entity_id": "6457953c-1695-5032-bb9a-421f03cebeae",
+      "correlation_id": "corr-duplicate",
+      "detail": "Returned existing document record.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "6457953c-1695-5032-bb9a-421f03cebeae",
+      "correlation_id": "corr-process-stable",
+      "detail": "Attempt 1.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_extracted",
+      "entity_id": "6457953c-1695-5032-bb9a-421f03cebeae",
+      "correlation_id": "corr-process-stable",
+      "detail": "Document extracted successfully.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_uploaded",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-transient",
+      "detail": "New document accepted for processing.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-process-transient",
+      "detail": "Attempt 1.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_failed",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-process-transient",
+      "detail": "temporary extractor failure",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-process-transient",
+      "detail": "Attempt 2.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_recovered",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-process-transient",
+      "detail": "Document recovered after retry.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_extracted",
+      "entity_id": "b830fa6d-1586-5fec-8c16-39bcbf9f3b76",
+      "correlation_id": "corr-process-transient",
+      "detail": "Document extracted successfully.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_uploaded",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-permanent",
+      "detail": "New document accepted for processing.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-process-permanent",
+      "detail": "Attempt 1.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-process-permanent",
+      "detail": "permanent extractor failure",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-process-permanent",
+      "detail": "Attempt 2.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-process-permanent",
+      "detail": "permanent extractor failure",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-process-permanent",
+      "detail": "Retry budget exhausted.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "replay_requested",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "Processing replay requested.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "Attempt 1.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "permanent extractor failure",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_attempted",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "Attempt 2.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "processing_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "permanent extractor failure",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    },
+    {
+      "action": "document_failed",
+      "entity_id": "a8f8d9ab-cada-5534-95da-bfe24c806f6b",
+      "correlation_id": "corr-replay-permanent",
+      "detail": "Retry budget exhausted.",
+      "created_at_utc": "2026-08-07T02:35:14+00:00"
+    }
+  ]
+}

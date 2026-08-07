@@ -39,3 +39,14 @@ def test_golden_review_decision_endpoint() -> None:
     assert payload["status"] == "DISPUTED"
     assert payload["review_decision"]["decision"] == "dispute"
     assert payload["audit_events"][-1]["action"] == "review_decision_recorded"
+
+
+def test_reliability_demo_endpoint() -> None:
+    response = TestClient(app).get("/api/v1/reliability/demo")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["valid"] is True
+    assert payload["metrics"]["duplicate_uploads"] == 1
+    assert payload["metrics"]["recovered_after_retry"] == 1
+    assert payload["metrics"]["failed_documents"] == 1
