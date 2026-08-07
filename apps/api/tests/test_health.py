@@ -50,3 +50,13 @@ def test_reliability_demo_endpoint() -> None:
     assert payload["metrics"]["duplicate_uploads"] == 1
     assert payload["metrics"]["recovered_after_retry"] == 1
     assert payload["metrics"]["failed_documents"] == 1
+
+
+def test_evidence_demo_endpoint() -> None:
+    response = TestClient(app).get("/api/v1/evidence/demo")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["valid"] is True
+    assert payload["unsupported_suggestion_acceptance_count"] == 0
+    assert payload["adversarial_validation"]["status"] == "REJECTED"

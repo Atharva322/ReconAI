@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .config import get_settings
 from .demo_data import apply_review_decision, get_review_case
 from .models import ReviewDecisionRequest
+from reconai_evidence.evaluate import evaluate_evidence_suggestions
 from reconai_reliability.evaluate import evaluate_reliability
 
 
@@ -46,6 +47,12 @@ def create_app() -> FastAPI:
     @app.get(f"{settings.api_prefix}/reliability/demo", tags=["reliability"])
     def reliability_demo() -> dict[str, object]:
         return evaluate_reliability()
+
+    @app.get(f"{settings.api_prefix}/evidence/demo", tags=["evidence"])
+    def evidence_demo() -> dict[str, object]:
+        from pathlib import Path
+
+        return evaluate_evidence_suggestions(Path.cwd())
 
     return app
 

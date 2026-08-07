@@ -1,0 +1,115 @@
+{
+  "valid": true,
+  "scenario_count": 12,
+  "accepted_suggestions": 12,
+  "rejected_suggestions": 0,
+  "reason_accuracy": 1.0,
+  "structured_validation_failure_rate": 0.0,
+  "unsupported_suggestion_acceptance_count": 0,
+  "adversarial_validation": {
+    "scenario_id": "adversarial_missing_evidence",
+    "status": "REJECTED",
+    "suggested_reason": "unexplained_deduction_amount",
+    "accepted_reason": null,
+    "rejection_reason": "missing_citation",
+    "citation_count": 0
+  },
+  "validations": [
+    {
+      "scenario_id": "s01_6986",
+      "status": "ACCEPTED",
+      "suggested_reason": "no_review_needed",
+      "accepted_reason": "no_review_needed",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s02_5573",
+      "status": "ACCEPTED",
+      "suggested_reason": "partial_payment_open_balance",
+      "accepted_reason": "partial_payment_open_balance",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s03_7810",
+      "status": "ACCEPTED",
+      "suggested_reason": "no_review_needed",
+      "accepted_reason": "no_review_needed",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s04_6811",
+      "status": "ACCEPTED",
+      "suggested_reason": "unexplained_deduction_amount",
+      "accepted_reason": "unexplained_deduction_amount",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s05_1410",
+      "status": "ACCEPTED",
+      "suggested_reason": "no_review_needed",
+      "accepted_reason": "no_review_needed",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s06_1600",
+      "status": "ACCEPTED",
+      "suggested_reason": "duplicate_document",
+      "accepted_reason": "duplicate_document",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s07_8583",
+      "status": "ACCEPTED",
+      "suggested_reason": "unknown_invoice_reference",
+      "accepted_reason": "unknown_invoice_reference",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s08_5471",
+      "status": "ACCEPTED",
+      "suggested_reason": "retailer_reference_conflict",
+      "accepted_reason": "retailer_reference_conflict",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s09_7929",
+      "status": "ACCEPTED",
+      "suggested_reason": "low_confidence_invoice_reference",
+      "accepted_reason": "low_confidence_invoice_reference",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s10_8481",
+      "status": "ACCEPTED",
+      "suggested_reason": "inconsistent_arithmetic",
+      "accepted_reason": "inconsistent_arithmetic",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s11_9662",
+      "status": "ACCEPTED",
+      "suggested_reason": "no_text_or_noisy_scan",
+      "accepted_reason": "no_text_or_noisy_scan",
+      "rejection_reason": null,
+      "citation_count": 1
+    },
+    {
+      "scenario_id": "s12_5362",
+      "status": "ACCEPTED",
+      "suggested_reason": "duplicate_deduction_claim",
+      "accepted_reason": "duplicate_deduction_claim",
+      "rejection_reason": null,
+      "citation_count": 1
+    }
+  ]
+}

@@ -7,8 +7,9 @@ RUN pip install --no-cache-dir -r /app/apps/api/requirements.txt
 
 COPY apps/api /app/apps/api
 COPY packages /app/packages
+COPY data/benchmark /app/data/benchmark
 
-ENV PYTHONPATH=/app/apps/api:/app/packages/domain:/app/packages/extraction:/app/packages/benchmark:/app/packages/reliability
+ENV PYTHONPATH=/app/apps/api:/app/packages/domain:/app/packages/extraction:/app/packages/benchmark:/app/packages/reliability:/app/packages/evidence
 
 EXPOSE 8000
 

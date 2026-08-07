@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "apps" / "api"))
+sys.path.insert(0, str(ROOT / "packages" / "evidence"))
 sys.path.insert(0, str(ROOT / "packages" / "reliability"))
 
 from reconai_api import app
