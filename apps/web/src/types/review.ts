@@ -30,7 +30,10 @@ export type ExtractedField = {
   document_type: string;
   field_name: string;
   value: string;
+  raw_value?: string;
+  normalized_value?: string;
   confidence: number;
+  page?: number;
   source: string;
 };
 

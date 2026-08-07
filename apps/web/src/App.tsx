@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { getGoldenReviewCase, submitReviewDecision } from "./api/reconai";
+import {
+  getGoldenReviewCase,
+  getReviewCase,
+  processReviewDocuments,
+  processSampleDocuments,
+  submitReviewDecision
+} from "./api/reconai";
 import type { AuditEvent, ReviewCase } from "./types/review";
 
 const formatMoney = (cents: number) =>
@@ -8,7 +14,10 @@ const formatMoney = (cents: number) =>
 export function App() {
   const [reviewCase, setReviewCase] = useState<ReviewCase | null>(null);
   const [comment, setComment] = useState("Dispute the unexplained over-claim.");
+  const [invoiceFile, setInvoiceFile] = useState<File | null>(null);
+  const [remittanceFile, setRemittanceFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,6 +37,44 @@ export function App() {
     }
   }
 
+  async function reloadCurrentCase() {
+    if (!reviewCase) {
+      await loadCase();
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    try {
+      setReviewCase(await getReviewCase(reviewCase.case_id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to reload review case.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleProcessDocuments(useSample = false) {
+    if (!useSample && (!invoiceFile || !remittanceFile)) {
+      setError("Choose both an invoice PDF and a remittance PDF.");
+      return;
+    }
+
+    setIsProcessing(true);
+    setError(null);
+    try {
+      const processed = useSample
+        ? await processSampleDocuments()
+        : await processReviewDocuments(invoiceFile as File, remittanceFile as File);
+      setReviewCase(processed);
+      setComment("Dispute the unexplained over-claim.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to process submitted documents.");
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
   async function handleDecision(decision: "approve" | "dispute") {
     if (!comment.trim() || reviewCase?.status !== "REVIEW_REQUIRED") {
       return;
@@ -36,7 +83,7 @@ export function App() {
     setIsSubmitting(true);
     setError(null);
     try {
-      setReviewCase(await submitReviewDecision(decision, comment.trim()));
+      setReviewCase(await submitReviewDecision(reviewCase.case_id, decision, comment.trim()));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit review decision.");
     } finally {
@@ -65,6 +112,7 @@ export function App() {
   }
 
   const canDecide = reviewCase.status === "REVIEW_REQUIRED" && !isSubmitting && comment.trim().length >= 3;
+  const canProcess = !isProcessing && Boolean(invoiceFile && remittanceFile);
 
   return (
     <main className="app-shell">
@@ -73,10 +121,36 @@ export function App() {
           <p>ReconAI</p>
           <h1>Review workspace</h1>
         </div>
-        <span className="sync-pill">API-backed demo</span>
+        <span className="sync-pill">PDF extraction demo</span>
       </header>
 
       {error ? <div className="error-banner">{error}</div> : null}
+
+      <section className="processing-panel" aria-label="Document processing">
+        <div>
+          <h2>Process invoice and remittance PDFs</h2>
+          <p>Digital PDF text extraction feeds deterministic reconciliation and the PostgreSQL-backed review workflow.</p>
+        </div>
+        <label>
+          <span>Invoice PDF</span>
+          <input type="file" accept="application/pdf,.pdf" onChange={(event) => setInvoiceFile(event.target.files?.[0] ?? null)} />
+        </label>
+        <label>
+          <span>Remittance PDF</span>
+          <input type="file" accept="application/pdf,.pdf" onChange={(event) => setRemittanceFile(event.target.files?.[0] ?? null)} />
+        </label>
+        <div className="processing-actions">
+          <button className="secondary-button" disabled={isProcessing} onClick={() => void handleProcessDocuments(true)}>
+            Use sample documents
+          </button>
+          <button className="primary-button" disabled={!canProcess} onClick={() => void handleProcessDocuments()}>
+            {isProcessing ? "Extracting..." : "Process documents"}
+          </button>
+          <button className="secondary-button" disabled={isLoading} onClick={() => void reloadCurrentCase()}>
+            Reload case
+          </button>
+        </div>
+      </section>
 
       <section className="workspace-grid">
         <aside className="queue-pane" aria-label="Review queue">
@@ -87,11 +161,11 @@ export function App() {
           <button className="queue-item queue-item-active">
             <span className="priority">{reviewCase.priority}</span>
             <strong>{reviewCase.retailer}</strong>
-            <small>{reviewCase.invoice.invoice_number} · {formatMoney(reviewCase.deduction.unexplained_cents)} unexplained</small>
+            <small>{reviewCase.invoice.invoice_number} - {formatMoney(reviewCase.deduction.unexplained_cents)} unexplained</small>
           </button>
         </aside>
 
-        <section className="case-pane" aria-label="Golden reconciliation case">
+        <section className="case-pane" aria-label="Reconciliation case">
           <div className="case-header">
             <div>
               <p>{reviewCase.tenant}</p>
@@ -116,7 +190,7 @@ export function App() {
                     <span className="document-chip">{field.document_type}</span>
                     <div className="field-name">{field.field_name}</div>
                     <div className="field-value">{field.value}</div>
-                    <small>{Math.round(field.confidence * 100)}% · {field.source}</small>
+                    <small>{Math.round(field.confidence * 100)}% - {field.source}</small>
                   </div>
                 ))}
               </div>

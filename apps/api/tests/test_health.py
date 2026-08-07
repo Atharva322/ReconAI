@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -5,6 +7,12 @@ from reconai_api import app, create_app
 from reconai_api.config import get_settings
 from reconai_api.database import connect
 from reconai_api.repositories.review_cases import ReviewCaseRepository
+
+
+ROOT = Path(__file__).resolve().parents[3]
+GOLDEN_INVOICE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s04_6811" / "invoice.pdf"
+GOLDEN_REMITTANCE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s04_6811" / "remittance.pdf"
+NO_TEXT_PDF = ROOT / "data" / "generated" / "northstar_no_text_scan.pdf"
 
 
 def test_health_endpoint() -> None:
@@ -131,6 +139,113 @@ def test_golden_review_reset_endpoint() -> None:
 
     assert response.status_code == 200
     assert response.json()["status"] == "REVIEW_REQUIRED"
+
+
+def test_process_sample_documents_creates_review_case_from_extracted_pdfs() -> None:
+    client = TestClient(app)
+    response = client.post("/api/v1/reconciliation/process", data={"use_sample": "true"})
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["case_id"].startswith("processed-")
+    assert payload["status"] == "REVIEW_REQUIRED"
+    assert payload["invoice"]["invoice_number"] == "NSB-INV-1001"
+    assert payload["invoice"]["total_cents"] == 1_845_000
+    assert payload["payment"]["payment_reference"] == "PAY-NORTHSTAR-0001"
+    assert payload["payment"]["received_cents"] == 1_720_000
+    assert payload["deduction"]["claimed_cents"] == 125_000
+    assert payload["deduction"]["validated_cents"] == 100_000
+    assert payload["deduction"]["unexplained_cents"] == 25_000
+    assert payload["review_reason"] == "unexplained_deduction_amount"
+    assert any(field["field_name"] == "invoice_total" and field["normalized_value"] == "18450.00" for field in payload["extracted_fields"])
+    assert [event["action"] for event in payload["audit_events"]] == [
+        "documents_processed",
+        "reconciliation_completed",
+        "review_task_created",
+    ]
+
+    fetched = client.get(f"/api/v1/review-cases/{payload['case_id']}")
+    assert fetched.status_code == 200
+    assert fetched.json()["deduction"]["unexplained_cents"] == 25_000
+
+
+def test_process_uploaded_documents_then_decision_survives_new_api_instance() -> None:
+    client = TestClient(app)
+    with GOLDEN_INVOICE.open("rb") as invoice, GOLDEN_REMITTANCE.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+    payload = response.json()
+    case_id = payload["case_id"]
+
+    decision = client.post(
+        f"/api/v1/review-cases/{case_id}/decision",
+        json={"decision": "dispute", "comment": "Dispute the dynamically extracted over-claim."},
+    )
+    recreated_client = TestClient(create_app())
+    persisted = recreated_client.get(f"/api/v1/review-cases/{case_id}")
+
+    assert response.status_code == 200
+    assert decision.status_code == 200
+    assert decision.json()["status"] == "DISPUTED"
+    assert persisted.status_code == 200
+    assert persisted.json()["status"] == "DISPUTED"
+    assert persisted.json()["review_decision"]["comment"] == "Dispute the dynamically extracted over-claim."
+
+
+def test_process_no_text_pdf_routes_to_review_without_fabricated_fields() -> None:
+    client = TestClient(app)
+    with NO_TEXT_PDF.open("rb") as invoice, NO_TEXT_PDF.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "REVIEW_REQUIRED"
+    assert payload["invoice"]["invoice_number"] == "INSUFFICIENT_EVIDENCE"
+    assert payload["extracted_fields"] == []
+    assert payload["rule_codes"] == ["INSUFFICIENT_DOCUMENT_EVIDENCE"]
+    assert "no text layer found" in payload["review_reason"]
+
+
+def test_process_corrupt_pdf_returns_controlled_422(tmp_path: Path) -> None:
+    corrupt = tmp_path / "corrupt.pdf"
+    corrupt.write_bytes(b"not a pdf")
+
+    client = TestClient(app)
+    with corrupt.open("rb") as invoice, GOLDEN_REMITTANCE.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("corrupt.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 422
+    assert "invalid or unreadable PDF" in response.text
+
+
+def test_process_non_pdf_upload_returns_415() -> None:
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/reconciliation/process",
+        files={
+            "invoice": ("invoice.txt", b"not a pdf", "text/plain"),
+            "remittance": ("remittance.pdf", GOLDEN_REMITTANCE.read_bytes(), "application/pdf"),
+        },
+    )
+
+    assert response.status_code == 415
 
 
 def test_reliability_demo_endpoint() -> None:

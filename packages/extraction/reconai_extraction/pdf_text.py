@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 from .contracts import ExtractedField, ExtractionResult
 
@@ -17,7 +18,10 @@ AUTHORIZED_PROMOTION_RE = re.compile(r"Authorized Promotion:\s*\$(?P<amount>[0-9
 
 
 def extract_invoice_summary(path: Path) -> ExtractionResult:
-    page_text = extract_pdf_text(path)
+    try:
+        page_text = extract_pdf_text(path)
+    except ExtractionDocumentError as exc:
+        return ExtractionResult(document_type="invoice", status="INVALID_DOCUMENT", errors=(str(exc),))
 
     if not page_text.strip():
         return ExtractionResult(
@@ -72,7 +76,10 @@ def extract_invoice_summary(path: Path) -> ExtractionResult:
 
 
 def extract_remittance_summary(path: Path) -> ExtractionResult:
-    page_text = extract_pdf_text(path)
+    try:
+        page_text = extract_pdf_text(path)
+    except ExtractionDocumentError as exc:
+        return ExtractionResult(document_type="remittance", status="INVALID_DOCUMENT", errors=(str(exc),))
 
     if not page_text.strip():
         return ExtractionResult(
@@ -103,8 +110,15 @@ def extract_remittance_summary(path: Path) -> ExtractionResult:
 
 
 def extract_pdf_text(path: Path) -> str:
-    reader = PdfReader(str(path))
-    return "\n".join(page.extract_text() or "" for page in reader.pages)
+    try:
+        reader = PdfReader(str(path))
+        return "\n".join(page.extract_text() or "" for page in reader.pages)
+    except (OSError, PdfReadError, ValueError) as exc:
+        raise ExtractionDocumentError("invalid or unreadable PDF") from exc
+
+
+class ExtractionDocumentError(Exception):
+    pass
 
 
 def _append_regex_field(

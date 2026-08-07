@@ -16,7 +16,18 @@ for (const file of requiredFiles) {
 }
 
 const appSource = readFileSync("src/App.tsx", "utf8");
-for (const phrase of ["Review workspace", "Extraction evidence", "Reconciliation", "Audit timeline", "getGoldenReviewCase", "submitReviewDecision"]) {
+for (const phrase of [
+  "Review workspace",
+  "Process invoice and remittance PDFs",
+  "Use sample documents",
+  "Process documents",
+  "Extraction evidence",
+  "Reconciliation",
+  "Audit timeline",
+  "processReviewDocuments",
+  "processSampleDocuments",
+  "submitReviewDecision"
+]) {
   if (!appSource.includes(phrase)) {
     throw new Error(`Review workspace is missing: ${phrase}`);
   }

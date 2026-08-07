@@ -19,7 +19,16 @@ class ReviewService:
         self.repository = repository
 
     def get_golden_case(self) -> dict[str, Any]:
+        return self.get_case(GOLDEN_CASE_ID)
+
+    def get_case(self, case_id: str) -> dict[str, Any]:
         workflow_state = self.repository.get_workflow_state(GOLDEN_CASE_ID)
+        if case_id != GOLDEN_CASE_ID:
+            workflow_state = self.repository.get_workflow_state(case_id)
+            if workflow_state is None:
+                raise HTTPException(status_code=404, detail="Review case not found.")
+            return _merge_case(workflow_state)
+
         if workflow_state is None:
             self.reset_golden_case()
             workflow_state = self.repository.get_workflow_state(GOLDEN_CASE_ID)
@@ -33,10 +42,14 @@ class ReviewService:
         return _merge_case(workflow_state)
 
     def apply_decision(self, decision: str, comment: str) -> dict[str, Any]:
+        return self.apply_case_decision(GOLDEN_CASE_ID, decision, comment)
+
+    def apply_case_decision(self, case_id: str, decision: str, comment: str) -> dict[str, Any]:
         normalized_comment = comment.strip()
         if len(normalized_comment) < 3:
             raise HTTPException(status_code=422, detail="Review comment must be at least 3 characters.")
-        self._ensure_seeded()
+        if case_id == GOLDEN_CASE_ID:
+            self._ensure_seeded()
 
         try:
             self.repository.record_decision(
@@ -44,6 +57,7 @@ class ReviewService:
                 comment=normalized_comment,
                 actor="demo_reviewer",
                 audit_details=f"{decision}: {normalized_comment}",
+                case_id=case_id,
             )
         except ReviewCaseAlreadyDecided as exc:
             raise HTTPException(
@@ -53,7 +67,7 @@ class ReviewService:
         except ReviewCaseNotFound as exc:
             raise HTTPException(status_code=404, detail="Review case not found.") from exc
 
-        return self.get_golden_case()
+        return self.get_case(case_id)
 
     def reset_golden_case(self) -> dict[str, Any]:
         self.repository.reset_golden_case(deepcopy(GOLDEN_REVIEW_CASE["audit_events"]))
@@ -74,7 +88,7 @@ class ReviewService:
 
 
 def _merge_case(workflow_state: dict[str, Any]) -> dict[str, Any]:
-    case = deepcopy(GOLDEN_REVIEW_CASE)
+    case = deepcopy(workflow_state["case_payload"] or GOLDEN_REVIEW_CASE)
     case["status"] = workflow_state["status"]
     case["audit_events"] = workflow_state["audit_events"]
     if workflow_state["decision"]:

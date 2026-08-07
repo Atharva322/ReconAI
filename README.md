@@ -2,7 +2,7 @@
 
 **Financial reconciliation and deduction review for CPG accounts-receivable workflows.**
 
-ReconAI converts invoice and remittance evidence into structured financial records, reconciles payments and promotional deductions using deterministic financial rules, and routes unexplained exceptions to auditable human review.
+ReconAI ingests generated invoice and remittance PDFs, extracts structured evidence from their digital text layer, reconciles payments and promotional deductions using deterministic financial rules, and routes unexplained exceptions to auditable human review.
 
 > **Portfolio prototype:** ReconAI uses reproducible generated financial data. No proprietary retailer or customer financial data is used.
 
@@ -24,7 +24,7 @@ The workflow preserves deterministic financial correctness while giving a human 
 
 ## What ReconAI Does
 
-- Extracts invoice and remittance fields with source provenance.
+- Extracts invoice and remittance fields from digital PDFs with source provenance.
 - Reconciles invoice, payment and deduction amounts using integer-cent deterministic rules.
 - Validates promotion allowances and calculates unexplained deductions.
 - Routes ambiguous, unsupported or contradictory cases to human review.
@@ -35,16 +35,16 @@ The workflow preserves deterministic financial correctness while giving a human 
 
 ```mermaid
 flowchart LR
-    A["Generated invoice + remittance"] --> B["Extraction + provenance"]
-    B --> C["FastAPI"]
+    A["Uploaded invoice + remittance PDFs"] --> B["Digital PDF text extraction + provenance"]
+    B --> C["Typed normalization"]
     C --> D["Deterministic reconciliation"]
-    D --> E["React review workspace"]
-    E --> F["ReviewService"]
-    F --> G[("PostgreSQL")]
-    F --> H["Transactional audit event"]
+    D --> E["FastAPI review workflow"]
+    E --> F[("PostgreSQL")]
+    E --> G["React review workspace"]
+    G --> H["Human decision + audit"]
 ```
 
-Document and extraction results enter typed application data. Financial arithmetic is deterministic and remains independent of any AI or suggestion layer. React displays backend-owned values from FastAPI, and reviewer decisions are submitted back to the API. `ReviewService` validates legal state transitions, while `ReviewCaseRepository` persists the decision and audit event in one PostgreSQL transaction.
+Uploaded PDF evidence is parsed through the existing digital-PDF text extractor, normalized into typed application data, and passed into deterministic reconciliation. React displays backend-owned values from FastAPI, and reviewer decisions are submitted back to the API. `ReviewService` validates legal state transitions, while `ReviewCaseRepository` persists the generated case, decision and audit events in PostgreSQL.
 
 ## Engineering Decisions
 
@@ -59,6 +59,8 @@ Document and extraction results enter typed application data. Financial arithmet
 **Generated benchmark:** Proprietary retailer financial data is inappropriate for a public portfolio, so ReconAI generates canonical financial truth first and evaluates the system against known expected outcomes.
 
 **Evidence suggestions:** ReconAI includes a typed evidence-suggestion and validation layer that checks citations, deduction amounts and review reasons before a suggestion can be accepted. The current public implementation does not depend on a live LLM; deterministic reconciliation remains the source of financial truth.
+
+**Digital PDF boundary:** The current prototype extracts structured fields from digital PDFs with a text layer using deterministic parsing. Image-only or scanned documents are treated as insufficient evidence; OCR is future work.
 
 ## Evaluation
 
@@ -120,6 +122,8 @@ npm run dev
 
 Open the review workspace at `http://127.0.0.1:5173`.
 
+Use **Use sample documents** in the UI to process the generated golden invoice/remittance PDFs through the same backend extraction endpoint.
+
 ### Reset The Demo Case
 
 For local/demo use only:
@@ -150,8 +154,11 @@ powershell -ExecutionPolicy Bypass -File scripts\check_migrations.ps1
 |---|---|---|
 | `GET` | `/health` | API health check |
 | `GET` | `/api/v1/review-cases/golden` | Load the golden review case |
+| `GET` | `/api/v1/review-cases/{case_id}` | Reload a processed review case |
 | `POST` | `/api/v1/review-cases/golden/decision` | Approve or dispute the review case |
+| `POST` | `/api/v1/review-cases/{case_id}/decision` | Approve or dispute a processed review case |
 | `POST` | `/api/v1/review-cases/golden/reset` | Reset the local demo case |
+| `POST` | `/api/v1/reconciliation/process` | Process uploaded invoice/remittance PDFs |
 | `GET` | `/api/v1/reliability/demo` | Run reliability/idempotency demo evaluation |
 | `GET` | `/api/v1/evidence/demo` | Run evidence suggestion validation demo |
 
@@ -165,6 +172,14 @@ Example decision request:
 ```
 
 A successful decision persists workflow state in PostgreSQL and adds a backend-created audit record. A repeated decision after the case is already approved or disputed returns HTTP `409`.
+
+Example document-processing request:
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/v1/reconciliation/process \
+  -F "invoice=@data/benchmark/seed_20260806/evidence/s04_6811/invoice.pdf" \
+  -F "remittance=@data/benchmark/seed_20260806/evidence/s04_6811/remittance.pdf"
+```
 
 ## Project Structure
 
@@ -187,7 +202,7 @@ docs/                   engineering and phase documentation
 
 - The current benchmark is generated and intentionally small: 12 scenario families / cases, not a production-scale evaluation.
 - ReconAI is a portfolio prototype, not an ERP, accounting platform or production deduction-management system.
-- Degraded, noisy or no-text evidence may require human review.
+- Degraded, image-only, scanned or no-text evidence is not OCRed in the current implementation and is routed to human review.
 - The public implementation does not currently call a live LLM.
 - Browser-level E2E automation and a larger held-out benchmark are planned but not yet implemented.
 - Cloud deployment, enterprise authentication and ERP integrations are future work.
@@ -195,17 +210,18 @@ docs/                   engineering and phase documentation
 ## Future Work
 
 1. Expand the held-out benchmark across more document layouts and degradations.
-2. Add browser-level E2E automation for the complete review workflow.
-3. Strengthen case/tenant-scoped evidence retrieval and citation validation.
-4. Add an optional LLM provider behind the existing deterministic validation layer.
-5. Harden deployment, observability and production operations.
+2. Add browser-level E2E automation for the complete upload-to-review workflow.
+3. Add OCR fallback for image-only/scanned PDFs behind the same validation path.
+4. Strengthen case/tenant-scoped evidence retrieval and citation validation.
+5. Add an optional LLM provider behind the existing deterministic validation layer.
 
 ## Demo
 
 A 60-90 second walkthrough is the next recruiter-launch step. The intended demo flow is:
 
-1. Load the API-backed review workspace.
-2. Explain the $18,450 invoice, $17,200 payment and $1,250 claimed deduction.
-3. Show the $1,000 validated promotion and $250 unexplained amount.
-4. Submit a dispute decision.
-5. Reload or restart the API and show the `DISPUTED` state persisted from PostgreSQL.
+1. Open the review workspace and click **Use sample documents**.
+2. Show the extracted invoice/remittance fields and provenance.
+3. Explain the $18,450 invoice, $17,200 payment and $1,250 claimed deduction.
+4. Show the $1,000 validated promotion and $250 unexplained amount.
+5. Submit a dispute decision.
+6. Reload or restart the API and show the `DISPUTED` state persisted from PostgreSQL.

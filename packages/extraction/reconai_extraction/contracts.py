@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
-ExtractionStatus = Literal["EXTRACTED", "INSUFFICIENT_EVIDENCE"]
+ExtractionStatus = Literal["EXTRACTED", "INSUFFICIENT_EVIDENCE", "INVALID_DOCUMENT"]
 
 
 @dataclass(frozen=True)
@@ -32,4 +32,4 @@ class ExtractionResult:
 
     @property
     def requires_review(self) -> bool:
-        return self.status == "INSUFFICIENT_EVIDENCE" or any(field.confidence < 0.8 for field in self.fields)
+        return self.status != "EXTRACTED" or any(field.confidence < 0.8 for field in self.fields)

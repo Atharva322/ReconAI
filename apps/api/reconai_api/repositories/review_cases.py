@@ -19,7 +19,7 @@ class ReviewCaseRepository:
         with self.conn.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, tenant_id, status, decision, comment, actor, decided_at
+                SELECT id, tenant_id, status, decision, comment, actor, decided_at, case_payload
                 FROM review_cases
                 WHERE id = %s
                 """,
@@ -48,6 +48,7 @@ class ReviewCaseRepository:
             "comment": case["comment"],
             "actor": case["actor"],
             "decided_at": _iso(case["decided_at"]),
+            "case_payload": case["case_payload"],
             "audit_events": [
                 {
                     "timestamp": _iso(event["created_at"]),
@@ -72,6 +73,7 @@ class ReviewCaseRepository:
                       comment = NULL,
                       actor = NULL,
                       decided_at = NULL,
+                      case_payload = NULL,
                       updated_at = now()
                     """,
                     (GOLDEN_CASE_ID, GOLDEN_TENANT_ID),
@@ -85,7 +87,46 @@ class ReviewCaseRepository:
                 )
                 self._insert_audit_events(cursor, seed_audit_events)
 
-    def record_decision(self, decision: str, comment: str, actor: str, audit_details: str) -> None:
+    def create_review_case(
+        self,
+        case_id: str,
+        case_payload: dict[str, Any],
+        seed_audit_events: list[dict[str, str]],
+    ) -> None:
+        with self.conn.transaction():
+            with self.conn.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO review_cases (id, tenant_id, status, case_payload)
+                    VALUES (%s, %s, 'REVIEW_REQUIRED', %s::jsonb)
+                    ON CONFLICT (id) DO UPDATE SET
+                      status = 'REVIEW_REQUIRED',
+                      decision = NULL,
+                      comment = NULL,
+                      actor = NULL,
+                      decided_at = NULL,
+                      case_payload = EXCLUDED.case_payload,
+                      updated_at = now()
+                    """,
+                    (case_id, GOLDEN_TENANT_ID, Jsonb(case_payload)),
+                )
+                cursor.execute(
+                    """
+                    DELETE FROM audit_events
+                    WHERE entity_type = 'review_case' AND entity_id = %s
+                    """,
+                    (case_id,),
+                )
+                self._insert_audit_events(cursor, seed_audit_events, case_id)
+
+    def record_decision(
+        self,
+        decision: str,
+        comment: str,
+        actor: str,
+        audit_details: str,
+        case_id: str = GOLDEN_CASE_ID,
+    ) -> None:
         status = "DISPUTED" if decision == "dispute" else "APPROVED"
         with self.conn.transaction():
             with self.conn.cursor() as cursor:
@@ -96,11 +137,11 @@ class ReviewCaseRepository:
                     WHERE id = %s
                     FOR UPDATE
                     """,
-                    (GOLDEN_CASE_ID,),
+                    (case_id,),
                 )
                 row = cursor.fetchone()
                 if not row:
-                    raise ReviewCaseNotFound(GOLDEN_CASE_ID)
+                    raise ReviewCaseNotFound(case_id)
                 if row["status"] != "REVIEW_REQUIRED":
                     raise ReviewCaseAlreadyDecided(row["status"])
 
@@ -115,11 +156,16 @@ class ReviewCaseRepository:
                         updated_at = now()
                     WHERE id = %s
                     """,
-                    (status, decision, comment, actor, GOLDEN_CASE_ID),
+                    (status, decision, comment, actor, case_id),
                 )
-                self._insert_decision_audit_event(cursor, actor, audit_details, decision, status)
+                self._insert_decision_audit_event(cursor, actor, audit_details, decision, status, case_id)
 
-    def _insert_audit_events(self, cursor: Any, seed_audit_events: list[dict[str, str]]) -> None:
+    def _insert_audit_events(
+        self,
+        cursor: Any,
+        seed_audit_events: list[dict[str, str]],
+        case_id: str = GOLDEN_CASE_ID,
+    ) -> None:
         for event in seed_audit_events:
             cursor.execute(
                 """
@@ -132,7 +178,7 @@ class ReviewCaseRepository:
                     GOLDEN_TENANT_ID,
                     event["actor"],
                     event["action"],
-                    GOLDEN_CASE_ID,
+                    case_id,
                     Jsonb({"details": event["details"]}),
                     event["timestamp"],
                 ),
@@ -145,6 +191,7 @@ class ReviewCaseRepository:
         audit_details: str,
         decision: str,
         status: str,
+        case_id: str = GOLDEN_CASE_ID,
     ) -> None:
         cursor.execute(
             """
@@ -156,7 +203,7 @@ class ReviewCaseRepository:
             (
                 GOLDEN_TENANT_ID,
                 actor,
-                GOLDEN_CASE_ID,
+                case_id,
                 Jsonb({"details": audit_details, "decision": decision, "status": status}),
             ),
         )
