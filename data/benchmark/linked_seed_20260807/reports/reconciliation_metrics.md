@@ -1,0 +1,11 @@
+# Linked Reconciliation Evaluation
+
+- case_count: `150`
+- scored_case_count: `130`
+- unsupported_case_count: `20`
+- status_matches: `130`
+- deduction_matches: `130`
+- status_accuracy: `1.0`
+- deduction_exact_accuracy: `1.0`
+- false_auto_match_count: `0`
+- unsupported_families: `{'multiple_payments_one_invoice': 10, 'one_payment_multiple_invoices': 10}`

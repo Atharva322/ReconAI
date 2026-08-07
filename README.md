@@ -84,6 +84,31 @@ Reports:
 - [Evidence metrics](data/benchmark/seed_20260806/reports/evidence_metrics.md)
 - [Reliability metrics](data/benchmark/seed_20260806/reports/reliability_metrics.md)
 
+ReconAI also includes a v2 linked financial benchmark whose invoice/payment relationships, remittance schemas and promotion evidence are generated from canonical truth. Public datasets are reference inputs for realistic structure and vocabulary only; raw external rows and documents are not redistributed.
+
+| Linked benchmark metric | Result |
+|---|---:|
+| Linked financial cases | 150 |
+| Generated documents | 335 |
+| Extraction fields scored | 950 |
+| Extraction fields matched exactly | 920 / 950 (96.8%) |
+| Reconciliation cases scored by current domain engine | 130 / 150 |
+| Reconciliation status outcomes | 130 / 130 |
+| Reconciliation deduction outcomes | 130 / 130 |
+| Unsupported cardinality cases reported, not hidden | 20 |
+| End-to-end cases scored | 115 |
+| End-to-end status outcomes | 115 / 115 |
+| End-to-end extraction-blocked cases | 15 |
+
+The current reconciliation engine intentionally reports one-payment-to-many-invoices and many-payments-to-one-invoice families as unsupported rather than counting them as successful. Those cases remain in the corpus as the next domain-model expansion target.
+
+Linked benchmark reports:
+
+- [Linked extraction metrics](data/benchmark/linked_seed_20260807/reports/extraction_metrics.md)
+- [Linked reconciliation metrics](data/benchmark/linked_seed_20260807/reports/reconciliation_metrics.md)
+- [Linked end-to-end metrics](data/benchmark/linked_seed_20260807/reports/end_to_end_metrics.md)
+- [Benchmark source provenance](docs/BENCHMARK_SOURCE_PROVENANCE.md)
+
 ## Tech Stack
 
 | Layer | Technology |

@@ -276,7 +276,6 @@ def _render_evidence(evidence_dir: Path, scenario: BenchmarkScenario) -> None:
             f"Invoice Reference: {scenario.invoice_number}",
             f"Payment Received: {_format_cents(scenario.payment_received_cents)}",
             f"Authorized Promotion: {_format_cents(scenario.authorized_promotion_cents)}",
-            f"Expected Status: {scenario.expected_status}",
         ],
     )
 
@@ -306,5 +305,5 @@ def _manifest(
 
 
 def _format_cents(amount_cents: int) -> str:
-    dollars = amount_cents / 100
-    return f"${dollars:,.2f}"
+    dollars, cents = divmod(amount_cents, 100)
+    return f"${dollars:,}.{cents:02d}"

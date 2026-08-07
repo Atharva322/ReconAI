@@ -1,0 +1,32 @@
+{
+  "generator_version": "benchmark.v2.linked-financial",
+  "seed": 20260807,
+  "dataset_kind": "generated_linked_financial",
+  "case_count": 150,
+  "truth_sha256": "dc5eec4dfc7076adadd3b29782f9dcf9f0e367941e67a2fefe90697929cef950",
+  "truth_path": "data/benchmark/linked_seed_20260807/ground_truth/linked_cases.json",
+  "evidence_path": "data/benchmark/linked_seed_20260807/evidence",
+  "family_counts": {
+    "amount_extraction_degradation": 10,
+    "contradictory_evidence": 5,
+    "duplicate_invoice_remittance": 10,
+    "exact_full_payment": 20,
+    "image_only_no_text": 5,
+    "incorrect_invoice_reference": 10,
+    "missing_remittance": 10,
+    "multiple_payments_one_invoice": 10,
+    "one_payment_multiple_invoices": 10,
+    "partial_payment": 15,
+    "promotion_overclaim": 15,
+    "reference_extraction_degradation": 5,
+    "unauthorized_deduction": 10,
+    "valid_deduction": 15
+  },
+  "split_counts": {
+    "dev": 100,
+    "validation": 25,
+    "held_out": 25
+  },
+  "external_raw_rows_stored": false,
+  "external_raw_documents_redistributed": false
+}
