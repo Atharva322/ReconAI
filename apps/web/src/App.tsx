@@ -92,9 +92,9 @@ export function App() {
               <div className="field-table">
                 {extractedFields.map((field) => (
                   <div className="field-row" key={`${field.document_type}-${field.field_name}`}>
-                    <span>{field.document_type}</span>
-                    <strong>{field.field_name}</strong>
-                    <b>{field.value}</b>
+                    <span className="document-chip">{field.document_type}</span>
+                    <div className="field-name">{field.field_name}</div>
+                    <div className="field-value">{field.value}</div>
                     <small>{Math.round(field.confidence * 100)}% · {field.source}</small>
                   </div>
                 ))}

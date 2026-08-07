@@ -99,7 +99,7 @@ body {
 
 .pane-heading span,
 .metric span,
-.field-row span {
+.document-chip {
   color: #667085;
   font-size: 12px;
   font-weight: 800;
@@ -226,19 +226,41 @@ h3 {
 
 .field-row {
   display: grid;
-  grid-template-columns: 96px minmax(120px, 1fr) minmax(120px, 0.8fr);
-  align-items: center;
-  gap: 12px;
-  min-height: 58px;
+  grid-template-columns: 96px minmax(150px, 0.85fr) minmax(180px, 1.15fr);
+  align-items: start;
+  gap: 8px 14px;
+  min-height: 72px;
   padding: 10px 12px;
   border: 1px solid #e4e8ef;
   border-radius: 6px;
   background: #ffffff;
 }
 
+.document-chip {
+  padding-top: 3px;
+}
+
+.field-name {
+  min-width: 0;
+  color: #111827;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.field-value {
+  min-width: 0;
+  color: #111827;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
 .field-row small {
   grid-column: 2 / 4;
   color: #667085;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .math-stack {
@@ -394,6 +416,10 @@ button {
 
   .field-row {
     grid-template-columns: 1fr;
+  }
+
+  .field-value {
+    text-align: left;
   }
 
   .field-row small {
