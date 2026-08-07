@@ -65,6 +65,7 @@ class DocumentProcessingService:
         remittance_fields = _field_map(remittance_result)
         invoice_number = invoice_fields["invoice_number"]
         remittance_invoice_number = remittance_fields["invoice_number"]
+        authorized_promotion = Money.parse(remittance_fields.get("authorized_promotion", "0.00"))
         validation_error = None
         if invoice_number != remittance_invoice_number:
             validation_error = "invoice_reference_conflict"
@@ -75,8 +76,8 @@ class DocumentProcessingService:
                 payment_reference=remittance_fields["payment_reference"],
                 invoice_total=Money.parse(invoice_fields["invoice_total"]),
                 payment_received=Money.parse(remittance_fields["payment_received"]),
-                authorized_promotion=Money.parse(remittance_fields["authorized_promotion"]),
-                promotion_code="PROMO-FROM-REMITTANCE",
+                authorized_promotion=authorized_promotion,
+                promotion_code="PROMO-FROM-REMITTANCE" if authorized_promotion.amount_cents else "NO-PROMOTION-EVIDENCE",
                 validation_error=validation_error,
             )
         )
@@ -108,9 +109,13 @@ class DocumentProcessingService:
                 "reason_code": "PROMOTION_RECONCILIATION",
             },
             "promotion": {
-                "promotion_code": "PROMO-FROM-REMITTANCE",
-                "authorized_cents": Money.parse(remittance_fields["authorized_promotion"]).amount_cents,
-                "validity": "Derived from submitted remittance evidence",
+                "promotion_code": "PROMO-FROM-REMITTANCE" if authorized_promotion.amount_cents else "NO-PROMOTION-EVIDENCE",
+                "authorized_cents": authorized_promotion.amount_cents,
+                "validity": (
+                    "Derived from submitted remittance evidence"
+                    if authorized_promotion.amount_cents
+                    else "No authorized promotion evidence submitted"
+                ),
             },
             "extracted_fields": extracted_fields,
             "rule_codes": list(reconciliation.rule_codes),

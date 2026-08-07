@@ -12,6 +12,8 @@ from reconai_api.repositories.review_cases import ReviewCaseRepository
 ROOT = Path(__file__).resolve().parents[3]
 GOLDEN_INVOICE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s04_6811" / "invoice.pdf"
 GOLDEN_REMITTANCE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s04_6811" / "remittance.pdf"
+LINKED_EXACT_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "exact_full_payment_0001" / "invoice.pdf"
+LINKED_EXACT_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "exact_full_payment_0001" / "remittance.pdf"
 NO_TEXT_PDF = ROOT / "data" / "generated" / "northstar_no_text_scan.pdf"
 
 
@@ -195,6 +197,26 @@ def test_process_uploaded_documents_then_decision_survives_new_api_instance() ->
     assert persisted.status_code == 200
     assert persisted.json()["status"] == "DISPUTED"
     assert persisted.json()["review_decision"]["comment"] == "Dispute the dynamically extracted over-claim."
+
+
+def test_process_linked_benchmark_pair_without_promotion_field() -> None:
+    client = TestClient(app)
+    with LINKED_EXACT_INVOICE.open("rb") as invoice, LINKED_EXACT_REMITTANCE.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "REVIEW_REQUIRED"
+    assert payload["promotion"]["authorized_cents"] == 0
+    assert payload["promotion"]["promotion_code"] == "NO-PROMOTION-EVIDENCE"
+    assert payload["deduction"]["claimed_cents"] == 0
+    assert payload["deduction"]["unexplained_cents"] == 0
 
 
 def test_process_no_text_pdf_routes_to_review_without_fabricated_fields() -> None:
