@@ -3,6 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
+from fastapi import HTTPException
+
 
 GOLDEN_REVIEW_CASE: dict[str, Any] = {
     "case_id": "review-golden-001",
@@ -93,13 +95,22 @@ GOLDEN_REVIEW_CASE: dict[str, Any] = {
     ],
 }
 
+_review_case_state: dict[str, Any] = deepcopy(GOLDEN_REVIEW_CASE)
+
 
 def get_review_case() -> dict[str, Any]:
-    return deepcopy(GOLDEN_REVIEW_CASE)
+    return deepcopy(_review_case_state)
 
 
 def apply_review_decision(decision: str, comment: str) -> dict[str, Any]:
-    case = get_review_case()
+    global _review_case_state
+    if _review_case_state["status"] != "REVIEW_REQUIRED":
+        raise HTTPException(
+            status_code=409,
+            detail=f"Review case already decided with status {_review_case_state['status']}.",
+        )
+
+    case = deepcopy(_review_case_state)
     decision_action = "review_decision_recorded"
     case["status"] = "DISPUTED" if decision == "dispute" else "APPROVED"
     case["review_decision"] = {
@@ -115,4 +126,11 @@ def apply_review_decision(decision: str, comment: str) -> dict[str, Any]:
             "details": f"{decision}: {comment}",
         }
     )
+    _review_case_state = case
     return case
+
+
+def reset_review_case() -> dict[str, Any]:
+    global _review_case_state
+    _review_case_state = deepcopy(GOLDEN_REVIEW_CASE)
+    return get_review_case()

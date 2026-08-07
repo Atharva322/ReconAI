@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import get_settings
-from .demo_data import apply_review_decision, get_review_case
+from .demo_data import apply_review_decision, get_review_case, reset_review_case
 from .models import ReviewDecisionRequest
 from reconai_evidence.evaluate import evaluate_evidence_suggestions
 from reconai_reliability.evaluate import evaluate_reliability
@@ -43,6 +43,10 @@ def create_app() -> FastAPI:
     @app.post(f"{settings.api_prefix}/review-cases/golden/decision", tags=["review"])
     def decide_golden_review_case(request: ReviewDecisionRequest) -> dict[str, object]:
         return apply_review_decision(request.decision, request.comment)
+
+    @app.post(f"{settings.api_prefix}/review-cases/golden/reset", tags=["review"])
+    def reset_golden_review_case() -> dict[str, object]:
+        return reset_review_case()
 
     @app.get(f"{settings.api_prefix}/reliability/demo", tags=["reliability"])
     def reliability_demo() -> dict[str, object]:

@@ -18,6 +18,7 @@ def test_demo_tenant_endpoint() -> None:
 
 
 def test_golden_review_case_endpoint() -> None:
+    TestClient(app).post("/api/v1/review-cases/golden/reset")
     response = TestClient(app).get("/api/v1/review-cases/golden")
 
     assert response.status_code == 200
@@ -29,7 +30,9 @@ def test_golden_review_case_endpoint() -> None:
 
 
 def test_golden_review_decision_endpoint() -> None:
-    response = TestClient(app).post(
+    client = TestClient(app)
+    client.post("/api/v1/review-cases/golden/reset")
+    response = client.post(
         "/api/v1/review-cases/golden/decision",
         json={"decision": "dispute", "comment": "Dispute the unexplained $250 over-claim."},
     )
@@ -39,6 +42,37 @@ def test_golden_review_decision_endpoint() -> None:
     assert payload["status"] == "DISPUTED"
     assert payload["review_decision"]["decision"] == "dispute"
     assert payload["audit_events"][-1]["action"] == "review_decision_recorded"
+
+    persisted = client.get("/api/v1/review-cases/golden")
+    assert persisted.json()["status"] == "DISPUTED"
+
+
+def test_golden_review_decision_rejects_invalid_transition() -> None:
+    client = TestClient(app)
+    client.post("/api/v1/review-cases/golden/reset")
+    first = client.post(
+        "/api/v1/review-cases/golden/decision",
+        json={"decision": "approve", "comment": "Approve the validated review outcome."},
+    )
+    second = client.post(
+        "/api/v1/review-cases/golden/decision",
+        json={"decision": "dispute", "comment": "Try to dispute after approval."},
+    )
+
+    assert first.status_code == 200
+    assert first.json()["status"] == "APPROVED"
+    assert second.status_code == 409
+
+
+def test_golden_review_reset_endpoint() -> None:
+    client = TestClient(app)
+    client.post("/api/v1/review-cases/golden/reset")
+    client.post("/api/v1/review-cases/golden/decision", json={"decision": "approve", "comment": "Approve case."})
+
+    response = client.post("/api/v1/review-cases/golden/reset")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "REVIEW_REQUIRED"
 
 
 def test_reliability_demo_endpoint() -> None:

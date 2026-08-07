@@ -70,6 +70,31 @@ body {
   margin: 0 auto;
 }
 
+.empty-state,
+.error-banner {
+  max-width: 720px;
+  margin: 48px auto 0;
+  padding: 18px;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.empty-state {
+  display: grid;
+  gap: 12px;
+  color: #334155;
+}
+
+.error-banner {
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-color: #fecaca;
+  background: #fff7f7;
+  color: #b42318;
+  font-weight: 700;
+}
+
 .queue-pane,
 .case-pane,
 .action-pane {
@@ -163,6 +188,16 @@ body {
   background: #fef3c7;
   color: #92400e;
   border-radius: 6px;
+}
+
+.status-approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-disputed {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .summary-strip {
@@ -322,6 +357,12 @@ textarea {
   line-height: 1.4;
 }
 
+textarea:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
 button {
   cursor: pointer;
   font: inherit;
@@ -345,6 +386,20 @@ button {
   border: 1px solid #cfd8e3;
   background: #ffffff;
   color: #334155;
+}
+
+.decision-note {
+  display: grid;
+  gap: 4px;
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #334155;
+}
+
+.decision-note strong {
+  text-transform: uppercase;
 }
 
 .timeline {

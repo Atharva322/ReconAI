@@ -16,11 +16,7 @@ for (const file of requiredFiles) {
 }
 
 const appSource = readFileSync("src/App.tsx", "utf8");
-if (!appSource.includes("Northstar Beverages")) {
-  throw new Error("Web shell does not expose the seeded demo tenant");
-}
-
-for (const phrase of ["Review workspace", "Extraction evidence", "Reconciliation", "Audit timeline"]) {
+for (const phrase of ["Review workspace", "Extraction evidence", "Reconciliation", "Audit timeline", "getGoldenReviewCase", "submitReviewDecision"]) {
   if (!appSource.includes(phrase)) {
     throw new Error(`Review workspace is missing: ${phrase}`);
   }
