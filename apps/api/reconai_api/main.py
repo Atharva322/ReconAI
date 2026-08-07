@@ -1,16 +1,29 @@
-from fastapi import FastAPI
+from collections.abc import Iterator
+
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from psycopg import Connection
 
 from .config import get_settings
-from .demo_data import apply_review_decision, get_review_case, reset_review_case
+from .database import connect, run_migrations
 from .models import ReviewDecisionRequest
+from .repositories.review_cases import ReviewCaseRepository
+from .services.review_service import ReviewService
 from reconai_evidence.evaluate import evaluate_evidence_suggestions
 from reconai_reliability.evaluate import evaluate_reliability
 
 
 def create_app() -> FastAPI:
     settings = get_settings()
+    run_migrations(settings)
     app = FastAPI(title=settings.app_name)
+
+    def get_connection() -> Iterator[Connection]:
+        with connect(settings) as conn:
+            yield conn
+
+    def get_review_service(conn: Connection = Depends(get_connection)) -> ReviewService:
+        return ReviewService(ReviewCaseRepository(conn))
 
     app.add_middleware(
         CORSMiddleware,
@@ -37,16 +50,19 @@ def create_app() -> FastAPI:
         }
 
     @app.get(f"{settings.api_prefix}/review-cases/golden", tags=["review"])
-    def golden_review_case() -> dict[str, object]:
-        return get_review_case()
+    def golden_review_case(service: ReviewService = Depends(get_review_service)) -> dict[str, object]:
+        return service.get_golden_case()
 
     @app.post(f"{settings.api_prefix}/review-cases/golden/decision", tags=["review"])
-    def decide_golden_review_case(request: ReviewDecisionRequest) -> dict[str, object]:
-        return apply_review_decision(request.decision, request.comment)
+    def decide_golden_review_case(
+        request: ReviewDecisionRequest,
+        service: ReviewService = Depends(get_review_service),
+    ) -> dict[str, object]:
+        return service.apply_decision(request.decision, request.comment)
 
     @app.post(f"{settings.api_prefix}/review-cases/golden/reset", tags=["review"])
-    def reset_golden_review_case() -> dict[str, object]:
-        return reset_review_case()
+    def reset_golden_review_case(service: ReviewService = Depends(get_review_service)) -> dict[str, object]:
+        return service.reset_golden_case()
 
     @app.get(f"{settings.api_prefix}/reliability/demo", tags=["reliability"])
     def reliability_demo() -> dict[str, object]:
