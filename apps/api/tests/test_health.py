@@ -245,6 +245,11 @@ def test_process_partial_payment_uses_open_balance_not_deduction() -> None:
     assert payload["deduction"]["claimed_cents"] == 0
     assert payload["deduction"]["open_balance_cents"] == payload["invoice"]["total_cents"] - payload["payment"]["received_cents"]
     assert payload["deduction"]["open_balance_cents"] > 0
+    assert payload["audit_events"][0]["details"] == "Invoice and remittance fields extracted from submitted PDFs."
+    assert payload["audit_events"][1]["details"] == (
+        "Partial payment detected: $20,178.00 invoice, $18,952.00 received, "
+        "$1,226.00 remaining open balance."
+    )
 
 
 def test_process_true_promotion_overclaim_uses_promotion_pdf() -> None:
@@ -273,6 +278,46 @@ def test_process_true_promotion_overclaim_uses_promotion_pdf() -> None:
     assert "PROMOTION_VALIDATED" in payload["rule_codes"]
     assert "UNEXPLAINED_DEDUCTION_REVIEW" in payload["rule_codes"]
     assert any(field["document_type"] == "promotion" and field["field_name"] == "authorized_promotion" for field in payload["extracted_fields"])
+
+
+def test_process_overclaim_then_partial_does_not_leak_promotion_state() -> None:
+    client = TestClient(app)
+    with (
+        LINKED_OVERCLAIM_INVOICE.open("rb") as invoice,
+        LINKED_OVERCLAIM_REMITTANCE.open("rb") as remittance,
+        LINKED_OVERCLAIM_PROMOTION.open("rb") as promotion,
+    ):
+        overclaim = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+                "promotion": ("promotion.pdf", promotion, "application/pdf"),
+            },
+        )
+    with LINKED_PARTIAL_INVOICE.open("rb") as invoice, LINKED_PARTIAL_REMITTANCE.open("rb") as remittance:
+        partial = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    overclaim_payload = overclaim.json()
+    partial_payload = partial.json()
+    reloaded = client.get(f"/api/v1/review-cases/{partial_payload['case_id']}").json()
+
+    assert overclaim_payload["promotion"]["authorized_cents"] == 79_700
+    assert overclaim_payload["deduction"]["unexplained_cents"] == 40_300
+    for payload in (partial_payload, reloaded):
+        assert payload["review_reason"] == "partial_payment_open_balance"
+        assert payload["promotion"]["authorized_cents"] == 0
+        assert payload["deduction"]["open_balance_cents"] == 122_600
+        assert payload["deduction"]["unexplained_cents"] == 0
+        assert not any(field["document_type"] == "promotion" for field in payload["extracted_fields"])
+        assert "promotion fields extracted" not in payload["audit_events"][0]["details"]
+        assert "$797.00" not in str(payload)
 
 
 def test_process_unauthorized_deduction_without_promotion_evidence() -> None:

@@ -164,11 +164,7 @@ class DocumentProcessingService:
                     now,
                     reconciliation.algorithm_version,
                     "reconciliation_completed",
-                    (
-                        f"{_format_money(reconciliation.deduction.claimed_deduction.amount_cents)} claimed deduction, "
-                        f"{_format_money(reconciliation.deduction.validated_deduction.amount_cents)} validated promotion, "
-                        f"{_format_money(reconciliation.deduction.unexplained_deduction.amount_cents)} unexplained."
-                    ),
+                    _reconciliation_detail(review_reason, invoice_total, payment_received, short_pay, reconciliation),
                 ),
             ],
         }
@@ -257,3 +253,23 @@ def _processed_detail(promotion_result: ExtractionResult | None) -> str:
     if promotion_result:
         return "Invoice, remittance, and promotion fields extracted from submitted PDFs."
     return "Invoice and remittance fields extracted from submitted PDFs."
+
+
+def _reconciliation_detail(
+    review_reason: str,
+    invoice_total: Money,
+    payment_received: Money,
+    open_balance: Money,
+    reconciliation: Any,
+) -> str:
+    if review_reason == "partial_payment_open_balance":
+        return (
+            f"Partial payment detected: {_format_money(invoice_total.amount_cents)} invoice, "
+            f"{_format_money(payment_received.amount_cents)} received, "
+            f"{_format_money(open_balance.amount_cents)} remaining open balance."
+        )
+    return (
+        f"{_format_money(reconciliation.deduction.claimed_deduction.amount_cents)} claimed deduction, "
+        f"{_format_money(reconciliation.deduction.validated_deduction.amount_cents)} validated promotion, "
+        f"{_format_money(reconciliation.deduction.unexplained_deduction.amount_cents)} unexplained."
+    )

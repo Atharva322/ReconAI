@@ -25,6 +25,7 @@ for (const phrase of [
   "Extraction evidence",
   "Reconciliation",
   "Audit timeline",
+  "getQueueSummary",
   "processReviewDocuments",
   "processSampleDocuments",
   "submitReviewDecision"

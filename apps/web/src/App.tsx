@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import {
   getGoldenReviewCase,
   getReviewCase,
@@ -92,6 +92,10 @@ export function App() {
     }
   }
 
+  function handlePromotionFileChange(event: ChangeEvent<HTMLInputElement>) {
+    setPromotionFile(event.target.files?.[0] ?? null);
+  }
+
   if (isLoading) {
     return (
       <main className="app-shell">
@@ -142,7 +146,7 @@ export function App() {
         </label>
         <label>
           <span>Promotion PDF optional</span>
-          <input type="file" accept="application/pdf,.pdf" onChange={(event) => setPromotionFile(event.target.files?.[0] ?? null)} />
+          <input type="file" accept="application/pdf,.pdf" onChange={handlePromotionFileChange} />
         </label>
         <div className="processing-actions">
           <button className="secondary-button" disabled={isProcessing} onClick={() => void handleProcessDocuments(true)}>
@@ -166,7 +170,7 @@ export function App() {
           <button className="queue-item queue-item-active">
             <span className="priority">{reviewCase.priority}</span>
             <strong>{reviewCase.retailer}</strong>
-            <small>{reviewCase.invoice.invoice_number} - {formatMoney(reviewCase.deduction.unexplained_cents)} unexplained</small>
+            <small>{reviewCase.invoice.invoice_number} - {getQueueSummary(reviewCase)}</small>
           </button>
         </aside>
 
@@ -302,6 +306,13 @@ function getDefaultDecisionComment(reviewCase: ReviewCase): string {
     return "Review the invoice reference mismatch before applying the payment.";
   }
   return "Review the reconciliation exception before applying the payment.";
+}
+
+function getQueueSummary(reviewCase: ReviewCase): string {
+  if (reviewCase.review_reason === "partial_payment_open_balance") {
+    return `${formatMoney(getAlertMetricValue(reviewCase))} open`;
+  }
+  return `${formatMoney(reviewCase.deduction.unexplained_cents)} unexplained`;
 }
 
 function getClaimMetricLabel(reviewCase: ReviewCase): string {
