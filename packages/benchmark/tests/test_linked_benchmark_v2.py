@@ -51,6 +51,30 @@ def test_linked_promotion_overclaim_uses_independent_promotion_evidence(tmp_path
     assert "Expected Status" not in remittance_text
 
 
+def test_linked_partial_payment_states_no_customer_deduction(tmp_path: Path) -> None:
+    build = generate_linked_dataset(tmp_path, LINKED_DEFAULT_SEED)
+    partial = next(case for case in build.cases if case.family == "partial_payment")
+
+    assert partial.payment is not None
+    assert partial.remittance is not None
+    assert partial.invoices[0].total_cents > partial.payment.received_cents
+    assert partial.remittance.claimed_deduction_cents == 0
+    assert partial.expected.open_balance_cents == partial.invoices[0].total_cents - partial.payment.received_cents
+    assert partial.expected.review_reason == "partial_payment_open_balance"
+    assert partial.supporting_evidence == ()
+
+    remittance_text = (
+        tmp_path
+        / "data"
+        / "benchmark"
+        / f"linked_seed_{LINKED_DEFAULT_SEED}"
+        / "evidence"
+        / partial.case_id
+        / "remittance.pdf"
+    ).read_bytes().decode("latin-1", errors="ignore")
+    assert "Claimed Deduction: $0.00" in remittance_text
+
+
 def test_linked_reports_are_written_and_mark_unsupported_cardinality(tmp_path: Path) -> None:
     generate_linked_dataset(tmp_path, LINKED_DEFAULT_SEED)
     reports = write_linked_reports(tmp_path, LINKED_DEFAULT_SEED)
@@ -61,6 +85,7 @@ def test_linked_reports_are_written_and_mark_unsupported_cardinality(tmp_path: P
     assert (report_dir / "end_to_end_metrics.json").exists()
     assert reports["reconciliation"]["case_count"] == 150
     assert reports["reconciliation"]["unsupported_families"] == {
+        "missing_remittance": 10,
         "multiple_payments_one_invoice": 10,
         "one_payment_multiple_invoices": 10,
     }

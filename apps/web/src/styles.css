@@ -97,7 +97,7 @@ body {
 
 .processing-panel {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(180px, 220px) minmax(180px, 220px) auto;
+  grid-template-columns: minmax(260px, 1fr) repeat(3, minmax(160px, 210px)) auto;
   align-items: end;
   gap: 14px;
   max-width: 1360px;
@@ -221,6 +221,7 @@ body {
 .queue-item small {
   color: #526071;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .case-pane {

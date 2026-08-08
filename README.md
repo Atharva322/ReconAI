@@ -92,15 +92,15 @@ ReconAI also includes a v2 linked financial benchmark whose invoice/payment rela
 | Generated documents | 335 |
 | Extraction fields scored | 950 |
 | Extraction fields matched exactly | 920 / 950 (96.8%) |
-| Reconciliation cases scored by current domain engine | 130 / 150 |
-| Reconciliation status outcomes | 130 / 130 |
-| Reconciliation deduction outcomes | 130 / 130 |
-| Unsupported cardinality cases reported, not hidden | 20 |
+| Reconciliation cases scored by current domain engine | 120 / 150 |
+| Reconciliation status outcomes | 90 / 120 |
+| Reconciliation deduction outcomes | 120 / 120 |
+| Unsupported or absent-document cases reported, not hidden | 30 |
 | End-to-end cases scored | 115 |
-| End-to-end status outcomes | 115 / 115 |
+| End-to-end status outcomes | 90 / 115 |
 | End-to-end extraction-blocked cases | 15 |
 
-The current reconciliation engine intentionally reports one-payment-to-many-invoices and many-payments-to-one-invoice families as unsupported rather than counting them as successful. Those cases remain in the corpus as the next domain-model expansion target.
+The current reconciliation engine intentionally reports missing-remittance, one-payment-to-many-invoices and many-payments-to-one-invoice families as unsupported by the reconciliation-only scorer rather than counting them as successful. Those cases remain in the corpus as the next domain-model expansion target.
 
 Linked benchmark reports:
 

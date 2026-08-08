@@ -17,6 +17,7 @@ export type Deduction = {
   claimed_cents: number;
   validated_cents: number;
   unexplained_cents: number;
+  open_balance_cents?: number;
   reason_code: string;
 };
 

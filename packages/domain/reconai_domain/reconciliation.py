@@ -15,6 +15,7 @@ class ReconciliationInput:
     invoice_total: Money
     payment_received: Money
     authorized_promotion: Money
+    stated_deduction: Money | None = None
     promotion_code: str | None = None
     review_reason: str | None = None
     validation_error: str | None = None
@@ -49,7 +50,9 @@ def reconcile_payment(input_data: ReconciliationInput) -> ReconciliationResult:
     if payment_received.amount_cents > invoice_total.amount_cents:
         raise ValueError("payment cannot exceed invoice total")
 
-    claimed_deduction = invoice_total - payment_received
+    short_pay = invoice_total - payment_received
+    claimed_deduction = input_data.stated_deduction if input_data.stated_deduction is not None else short_pay
+    invoice_total._check_currency(claimed_deduction)
     validated_cents = min(claimed_deduction.amount_cents, authorized_promotion.amount_cents)
     validated = Money(validated_cents)
     unexplained = Money(claimed_deduction.amount_cents - validated_cents)

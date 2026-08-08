@@ -14,6 +14,16 @@ GOLDEN_INVOICE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s
 GOLDEN_REMITTANCE = ROOT / "data" / "benchmark" / "seed_20260806" / "evidence" / "s04_6811" / "remittance.pdf"
 LINKED_EXACT_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "exact_full_payment_0001" / "invoice.pdf"
 LINKED_EXACT_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "exact_full_payment_0001" / "remittance.pdf"
+LINKED_PARTIAL_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "partial_payment_0001" / "invoice.pdf"
+LINKED_PARTIAL_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "partial_payment_0001" / "remittance.pdf"
+LINKED_OVERCLAIM_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "promotion_overclaim_0001" / "invoice.pdf"
+LINKED_OVERCLAIM_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "promotion_overclaim_0001" / "remittance.pdf"
+LINKED_OVERCLAIM_PROMOTION = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "promotion_overclaim_0001" / "promotion.pdf"
+LINKED_UNAUTHORIZED_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "unauthorized_deduction_0001" / "invoice.pdf"
+LINKED_UNAUTHORIZED_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "unauthorized_deduction_0001" / "remittance.pdf"
+LINKED_CONTRADICTORY_INVOICE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "contradictory_evidence_0001" / "invoice.pdf"
+LINKED_CONTRADICTORY_REMITTANCE = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "contradictory_evidence_0001" / "remittance.pdf"
+LINKED_CONTRADICTORY_PROMOTION = ROOT / "data" / "benchmark" / "linked_seed_20260807" / "evidence" / "contradictory_evidence_0001" / "promotion.pdf"
 NO_TEXT_PDF = ROOT / "data" / "generated" / "northstar_no_text_scan.pdf"
 
 
@@ -151,15 +161,12 @@ def test_process_sample_documents_creates_review_case_from_extracted_pdfs() -> N
     payload = response.json()
     assert payload["case_id"].startswith("processed-")
     assert payload["status"] == "REVIEW_REQUIRED"
-    assert payload["invoice"]["invoice_number"] == "NSB-INV-1001"
-    assert payload["invoice"]["total_cents"] == 1_845_000
-    assert payload["payment"]["payment_reference"] == "PAY-NORTHSTAR-0001"
-    assert payload["payment"]["received_cents"] == 1_720_000
-    assert payload["deduction"]["claimed_cents"] == 125_000
-    assert payload["deduction"]["validated_cents"] == 100_000
-    assert payload["deduction"]["unexplained_cents"] == 25_000
+    assert payload["deduction"]["claimed_cents"] > 0
+    assert 0 < payload["promotion"]["authorized_cents"] < payload["deduction"]["claimed_cents"]
+    assert payload["deduction"]["validated_cents"] == payload["promotion"]["authorized_cents"]
+    assert payload["deduction"]["unexplained_cents"] == payload["deduction"]["claimed_cents"] - payload["deduction"]["validated_cents"]
     assert payload["review_reason"] == "unexplained_deduction_amount"
-    assert any(field["field_name"] == "invoice_total" and field["normalized_value"] == "18450.00" for field in payload["extracted_fields"])
+    assert any(field["document_type"] == "promotion" and field["field_name"] == "authorized_promotion" for field in payload["extracted_fields"])
     assert [event["action"] for event in payload["audit_events"]] == [
         "documents_processed",
         "reconciliation_completed",
@@ -168,7 +175,7 @@ def test_process_sample_documents_creates_review_case_from_extracted_pdfs() -> N
 
     fetched = client.get(f"/api/v1/review-cases/{payload['case_id']}")
     assert fetched.status_code == 200
-    assert fetched.json()["deduction"]["unexplained_cents"] == 25_000
+    assert fetched.json()["deduction"]["unexplained_cents"] == payload["deduction"]["unexplained_cents"]
 
 
 def test_process_uploaded_documents_then_decision_survives_new_api_instance() -> None:
@@ -217,6 +224,127 @@ def test_process_linked_benchmark_pair_without_promotion_field() -> None:
     assert payload["promotion"]["promotion_code"] == "NO-PROMOTION-EVIDENCE"
     assert payload["deduction"]["claimed_cents"] == 0
     assert payload["deduction"]["unexplained_cents"] == 0
+
+
+def test_process_partial_payment_uses_open_balance_not_deduction() -> None:
+    client = TestClient(app)
+    with LINKED_PARTIAL_INVOICE.open("rb") as invoice, LINKED_PARTIAL_REMITTANCE.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "REVIEW_REQUIRED"
+    assert payload["review_reason"] == "partial_payment_open_balance"
+    assert payload["promotion"]["authorized_cents"] == 0
+    assert payload["deduction"]["claimed_cents"] == 0
+    assert payload["deduction"]["open_balance_cents"] == payload["invoice"]["total_cents"] - payload["payment"]["received_cents"]
+    assert payload["deduction"]["open_balance_cents"] > 0
+
+
+def test_process_true_promotion_overclaim_uses_promotion_pdf() -> None:
+    client = TestClient(app)
+    with (
+        LINKED_OVERCLAIM_INVOICE.open("rb") as invoice,
+        LINKED_OVERCLAIM_REMITTANCE.open("rb") as remittance,
+        LINKED_OVERCLAIM_PROMOTION.open("rb") as promotion,
+    ):
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+                "promotion": ("promotion.pdf", promotion, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["deduction"]["claimed_cents"] > 0
+    assert 0 < payload["promotion"]["authorized_cents"] < payload["deduction"]["claimed_cents"]
+    assert payload["deduction"]["validated_cents"] == payload["promotion"]["authorized_cents"]
+    assert payload["deduction"]["unexplained_cents"] == payload["deduction"]["claimed_cents"] - payload["deduction"]["validated_cents"]
+    assert payload["review_reason"] == "unexplained_deduction_amount"
+    assert "PROMOTION_VALIDATED" in payload["rule_codes"]
+    assert "UNEXPLAINED_DEDUCTION_REVIEW" in payload["rule_codes"]
+    assert any(field["document_type"] == "promotion" and field["field_name"] == "authorized_promotion" for field in payload["extracted_fields"])
+
+
+def test_process_unauthorized_deduction_without_promotion_evidence() -> None:
+    client = TestClient(app)
+    with LINKED_UNAUTHORIZED_INVOICE.open("rb") as invoice, LINKED_UNAUTHORIZED_REMITTANCE.open("rb") as remittance:
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["review_reason"] == "unauthorized_deduction"
+    assert payload["promotion"]["authorized_cents"] == 0
+    assert payload["deduction"]["validated_cents"] == 0
+    assert payload["deduction"]["unexplained_cents"] == payload["deduction"]["claimed_cents"]
+
+
+def test_process_contradictory_stated_deduction_routes_validation_review() -> None:
+    client = TestClient(app)
+    with (
+        LINKED_CONTRADICTORY_INVOICE.open("rb") as invoice,
+        LINKED_CONTRADICTORY_REMITTANCE.open("rb") as remittance,
+        LINKED_CONTRADICTORY_PROMOTION.open("rb") as promotion,
+    ):
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+                "promotion": ("promotion.pdf", promotion, "application/pdf"),
+            },
+        )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "REVIEW_REQUIRED"
+    assert payload["review_reason"] == "stated_deduction_mismatch"
+    assert "VALIDATION_ERROR:stated_deduction_mismatch" in payload["rule_codes"]
+
+
+def test_process_true_promotion_overclaim_decision_persists() -> None:
+    client = TestClient(app)
+    with (
+        LINKED_OVERCLAIM_INVOICE.open("rb") as invoice,
+        LINKED_OVERCLAIM_REMITTANCE.open("rb") as remittance,
+        LINKED_OVERCLAIM_PROMOTION.open("rb") as promotion,
+    ):
+        response = client.post(
+            "/api/v1/reconciliation/process",
+            files={
+                "invoice": ("invoice.pdf", invoice, "application/pdf"),
+                "remittance": ("remittance.pdf", remittance, "application/pdf"),
+                "promotion": ("promotion.pdf", promotion, "application/pdf"),
+            },
+        )
+    case_id = response.json()["case_id"]
+
+    decision = client.post(
+        f"/api/v1/review-cases/{case_id}/decision",
+        json={"decision": "dispute", "comment": "Dispute the unsupported promotion over-claim."},
+    )
+    persisted = TestClient(create_app()).get(f"/api/v1/review-cases/{case_id}")
+
+    assert response.status_code == 200
+    assert decision.status_code == 200
+    assert persisted.status_code == 200
+    assert persisted.json()["status"] == "DISPUTED"
+    assert persisted.json()["review_decision"]["comment"] == "Dispute the unsupported promotion over-claim."
 
 
 def test_process_no_text_pdf_routes_to_review_without_fabricated_fields() -> None:

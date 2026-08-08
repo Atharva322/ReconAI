@@ -3,7 +3,7 @@
   "seed": 20260807,
   "dataset_kind": "generated_linked_financial",
   "case_count": 150,
-  "truth_sha256": "dc5eec4dfc7076adadd3b29782f9dcf9f0e367941e67a2fefe90697929cef950",
+  "truth_sha256": "97a473455f8cd39775659df505e3c31951f8c0a8e23c772b70ce7dd29d40f9b6",
   "truth_path": "data/benchmark/linked_seed_20260807/ground_truth/linked_cases.json",
   "evidence_path": "data/benchmark/linked_seed_20260807/evidence",
   "family_counts": {

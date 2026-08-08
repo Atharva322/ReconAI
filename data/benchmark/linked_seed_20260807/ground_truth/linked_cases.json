@@ -35,6 +35,7 @@
           "applied_payment_cents": 516100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -85,6 +86,7 @@
           "applied_payment_cents": 2924900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -135,6 +137,7 @@
           "applied_payment_cents": 2716000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -185,6 +188,7 @@
           "applied_payment_cents": 332900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -235,6 +239,7 @@
           "applied_payment_cents": 1232000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -285,6 +290,7 @@
           "applied_payment_cents": 2309000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -335,6 +341,7 @@
           "applied_payment_cents": 410700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -385,6 +392,7 @@
           "applied_payment_cents": 2014300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -435,6 +443,7 @@
           "applied_payment_cents": 551800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -485,6 +494,7 @@
           "applied_payment_cents": 1867900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -535,6 +545,7 @@
           "applied_payment_cents": 508600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -585,6 +596,7 @@
           "applied_payment_cents": 1353100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -635,6 +647,7 @@
           "applied_payment_cents": 641600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -685,6 +698,7 @@
           "applied_payment_cents": 1181200
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -735,6 +749,7 @@
           "applied_payment_cents": 1035700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -785,6 +800,7 @@
           "applied_payment_cents": 1407700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -835,6 +851,7 @@
           "applied_payment_cents": 721900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -885,6 +902,7 @@
           "applied_payment_cents": 1397600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -935,6 +953,7 @@
           "applied_payment_cents": 2596600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -985,6 +1004,7 @@
           "applied_payment_cents": 530200
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -1043,6 +1063,7 @@
           "applied_payment_cents": 331300
         }
       ],
+      "open_balance_cents": 56600,
       "claimed_deduction_cents": 56600,
       "validated_deduction_cents": 56600,
       "unexplained_deduction_cents": 0,
@@ -1101,6 +1122,7 @@
           "applied_payment_cents": 1944300
         }
       ],
+      "open_balance_cents": 40200,
       "claimed_deduction_cents": 40200,
       "validated_deduction_cents": 40200,
       "unexplained_deduction_cents": 0,
@@ -1159,6 +1181,7 @@
           "applied_payment_cents": 1324900
         }
       ],
+      "open_balance_cents": 78900,
       "claimed_deduction_cents": 78900,
       "validated_deduction_cents": 78900,
       "unexplained_deduction_cents": 0,
@@ -1217,6 +1240,7 @@
           "applied_payment_cents": 2072600
         }
       ],
+      "open_balance_cents": 111900,
       "claimed_deduction_cents": 111900,
       "validated_deduction_cents": 111900,
       "unexplained_deduction_cents": 0,
@@ -1275,6 +1299,7 @@
           "applied_payment_cents": 332200
         }
       ],
+      "open_balance_cents": 48500,
       "claimed_deduction_cents": 48500,
       "validated_deduction_cents": 48500,
       "unexplained_deduction_cents": 0,
@@ -1333,6 +1358,7 @@
           "applied_payment_cents": 368600
         }
       ],
+      "open_balance_cents": 78000,
       "claimed_deduction_cents": 78000,
       "validated_deduction_cents": 78000,
       "unexplained_deduction_cents": 0,
@@ -1391,6 +1417,7 @@
           "applied_payment_cents": 1344000
         }
       ],
+      "open_balance_cents": 45700,
       "claimed_deduction_cents": 45700,
       "validated_deduction_cents": 45700,
       "unexplained_deduction_cents": 0,
@@ -1449,6 +1476,7 @@
           "applied_payment_cents": 1846800
         }
       ],
+      "open_balance_cents": 43200,
       "claimed_deduction_cents": 43200,
       "validated_deduction_cents": 43200,
       "unexplained_deduction_cents": 0,
@@ -1507,6 +1535,7 @@
           "applied_payment_cents": 502600
         }
       ],
+      "open_balance_cents": 70100,
       "claimed_deduction_cents": 70100,
       "validated_deduction_cents": 70100,
       "unexplained_deduction_cents": 0,
@@ -1565,6 +1594,7 @@
           "applied_payment_cents": 2227400
         }
       ],
+      "open_balance_cents": 72200,
       "claimed_deduction_cents": 72200,
       "validated_deduction_cents": 72200,
       "unexplained_deduction_cents": 0,
@@ -1623,6 +1653,7 @@
           "applied_payment_cents": 1937600
         }
       ],
+      "open_balance_cents": 81900,
       "claimed_deduction_cents": 81900,
       "validated_deduction_cents": 81900,
       "unexplained_deduction_cents": 0,
@@ -1681,6 +1712,7 @@
           "applied_payment_cents": 1894600
         }
       ],
+      "open_balance_cents": 48400,
       "claimed_deduction_cents": 48400,
       "validated_deduction_cents": 48400,
       "unexplained_deduction_cents": 0,
@@ -1739,6 +1771,7 @@
           "applied_payment_cents": 865000
         }
       ],
+      "open_balance_cents": 47300,
       "claimed_deduction_cents": 47300,
       "validated_deduction_cents": 47300,
       "unexplained_deduction_cents": 0,
@@ -1797,6 +1830,7 @@
           "applied_payment_cents": 543100
         }
       ],
+      "open_balance_cents": 50700,
       "claimed_deduction_cents": 50700,
       "validated_deduction_cents": 50700,
       "unexplained_deduction_cents": 0,
@@ -1855,6 +1889,7 @@
           "applied_payment_cents": 2554700
         }
       ],
+      "open_balance_cents": 63600,
       "claimed_deduction_cents": 63600,
       "validated_deduction_cents": 63600,
       "unexplained_deduction_cents": 0,
@@ -1913,6 +1948,7 @@
           "applied_payment_cents": 2500900
         }
       ],
+      "open_balance_cents": 120000,
       "claimed_deduction_cents": 120000,
       "validated_deduction_cents": 79700,
       "unexplained_deduction_cents": 40300,
@@ -1971,6 +2007,7 @@
           "applied_payment_cents": 740600
         }
       ],
+      "open_balance_cents": 142800,
       "claimed_deduction_cents": 142800,
       "validated_deduction_cents": 95900,
       "unexplained_deduction_cents": 46900,
@@ -2029,6 +2066,7 @@
           "applied_payment_cents": 404400
         }
       ],
+      "open_balance_cents": 125000,
       "claimed_deduction_cents": 125000,
       "validated_deduction_cents": 112100,
       "unexplained_deduction_cents": 12900,
@@ -2087,6 +2125,7 @@
           "applied_payment_cents": 2388500
         }
       ],
+      "open_balance_cents": 98600,
       "claimed_deduction_cents": 98600,
       "validated_deduction_cents": 82400,
       "unexplained_deduction_cents": 16200,
@@ -2145,6 +2184,7 @@
           "applied_payment_cents": 850400
         }
       ],
+      "open_balance_cents": 83500,
       "claimed_deduction_cents": 83500,
       "validated_deduction_cents": 66400,
       "unexplained_deduction_cents": 17100,
@@ -2203,6 +2243,7 @@
           "applied_payment_cents": 160200
         }
       ],
+      "open_balance_cents": 122900,
       "claimed_deduction_cents": 122900,
       "validated_deduction_cents": 97700,
       "unexplained_deduction_cents": 25200,
@@ -2261,6 +2302,7 @@
           "applied_payment_cents": 142600
         }
       ],
+      "open_balance_cents": 109000,
       "claimed_deduction_cents": 109000,
       "validated_deduction_cents": 95600,
       "unexplained_deduction_cents": 13400,
@@ -2319,6 +2361,7 @@
           "applied_payment_cents": 798600
         }
       ],
+      "open_balance_cents": 138100,
       "claimed_deduction_cents": 138100,
       "validated_deduction_cents": 100500,
       "unexplained_deduction_cents": 37600,
@@ -2377,6 +2420,7 @@
           "applied_payment_cents": 310200
         }
       ],
+      "open_balance_cents": 139400,
       "claimed_deduction_cents": 139400,
       "validated_deduction_cents": 109200,
       "unexplained_deduction_cents": 30200,
@@ -2435,6 +2479,7 @@
           "applied_payment_cents": 721700
         }
       ],
+      "open_balance_cents": 155800,
       "claimed_deduction_cents": 155800,
       "validated_deduction_cents": 110700,
       "unexplained_deduction_cents": 45100,
@@ -2493,6 +2538,7 @@
           "applied_payment_cents": 619200
         }
       ],
+      "open_balance_cents": 83200,
       "claimed_deduction_cents": 83200,
       "validated_deduction_cents": 66700,
       "unexplained_deduction_cents": 16500,
@@ -2551,6 +2597,7 @@
           "applied_payment_cents": 551800
         }
       ],
+      "open_balance_cents": 126900,
       "claimed_deduction_cents": 126900,
       "validated_deduction_cents": 77400,
       "unexplained_deduction_cents": 49500,
@@ -2609,6 +2656,7 @@
           "applied_payment_cents": 279100
         }
       ],
+      "open_balance_cents": 126400,
       "claimed_deduction_cents": 126400,
       "validated_deduction_cents": 109400,
       "unexplained_deduction_cents": 17000,
@@ -2667,6 +2715,7 @@
           "applied_payment_cents": 521900
         }
       ],
+      "open_balance_cents": 94400,
       "claimed_deduction_cents": 94400,
       "validated_deduction_cents": 49400,
       "unexplained_deduction_cents": 45000,
@@ -2725,6 +2774,7 @@
           "applied_payment_cents": 418700
         }
       ],
+      "open_balance_cents": 120000,
       "claimed_deduction_cents": 120000,
       "validated_deduction_cents": 81700,
       "unexplained_deduction_cents": 38300,
@@ -2764,7 +2814,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0001-1"
       ],
-      "claimed_deduction_cents": 122600,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "UNAUTHORIZED_ALLOWANCE"
     },
     "supporting_evidence": [],
@@ -2775,9 +2825,10 @@
           "applied_payment_cents": 1895200
         }
       ],
-      "claimed_deduction_cents": 122600,
+      "open_balance_cents": 122600,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 122600,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -2814,7 +2865,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0002-1"
       ],
-      "claimed_deduction_cents": 112000,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "DUPLICATE_CLAIM"
     },
     "supporting_evidence": [],
@@ -2825,9 +2876,10 @@
           "applied_payment_cents": 140400
         }
       ],
-      "claimed_deduction_cents": 112000,
+      "open_balance_cents": 112000,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 112000,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -2864,7 +2916,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0003-1"
       ],
-      "claimed_deduction_cents": 141100,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -2875,9 +2927,10 @@
           "applied_payment_cents": 960500
         }
       ],
-      "claimed_deduction_cents": 141100,
+      "open_balance_cents": 141100,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 141100,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -2914,7 +2967,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0004-1"
       ],
-      "claimed_deduction_cents": 62600,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "UNAUTHORIZED_ALLOWANCE"
     },
     "supporting_evidence": [],
@@ -2925,9 +2978,10 @@
           "applied_payment_cents": 257300
         }
       ],
-      "claimed_deduction_cents": 62600,
+      "open_balance_cents": 62600,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 62600,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -2964,7 +3018,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0005-1"
       ],
-      "claimed_deduction_cents": 88500,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "SHORTAGE"
     },
     "supporting_evidence": [],
@@ -2975,9 +3029,10 @@
           "applied_payment_cents": 1909900
         }
       ],
-      "claimed_deduction_cents": 88500,
+      "open_balance_cents": 88500,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 88500,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3014,7 +3069,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0006-1"
       ],
-      "claimed_deduction_cents": 129100,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -3025,9 +3080,10 @@
           "applied_payment_cents": 976300
         }
       ],
-      "claimed_deduction_cents": 129100,
+      "open_balance_cents": 129100,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 129100,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3064,7 +3120,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0007-1"
       ],
-      "claimed_deduction_cents": 174000,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PRICE_DIFFERENCE"
     },
     "supporting_evidence": [],
@@ -3075,9 +3131,10 @@
           "applied_payment_cents": 502000
         }
       ],
-      "claimed_deduction_cents": 174000,
+      "open_balance_cents": 174000,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 174000,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3114,7 +3171,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0008-1"
       ],
-      "claimed_deduction_cents": 104700,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "DUPLICATE_CLAIM"
     },
     "supporting_evidence": [],
@@ -3125,9 +3182,10 @@
           "applied_payment_cents": 1081600
         }
       ],
-      "claimed_deduction_cents": 104700,
+      "open_balance_cents": 104700,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 104700,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3164,7 +3222,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0009-1"
       ],
-      "claimed_deduction_cents": 92300,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -3175,9 +3233,10 @@
           "applied_payment_cents": 1191300
         }
       ],
-      "claimed_deduction_cents": 92300,
+      "open_balance_cents": 92300,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 92300,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3214,7 +3273,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0010-1"
       ],
-      "claimed_deduction_cents": 159800,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "DUPLICATE_CLAIM"
     },
     "supporting_evidence": [],
@@ -3225,9 +3284,10 @@
           "applied_payment_cents": 921000
         }
       ],
-      "claimed_deduction_cents": 159800,
+      "open_balance_cents": 159800,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 159800,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3264,7 +3324,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0011-1"
       ],
-      "claimed_deduction_cents": 97600,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "UNAUTHORIZED_ALLOWANCE"
     },
     "supporting_evidence": [],
@@ -3275,9 +3335,10 @@
           "applied_payment_cents": 332100
         }
       ],
-      "claimed_deduction_cents": 97600,
+      "open_balance_cents": 97600,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 97600,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3314,7 +3375,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0012-1"
       ],
-      "claimed_deduction_cents": 111600,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -3325,9 +3386,10 @@
           "applied_payment_cents": 1308000
         }
       ],
-      "claimed_deduction_cents": 111600,
+      "open_balance_cents": 111600,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 111600,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3364,7 +3426,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0013-1"
       ],
-      "claimed_deduction_cents": 136100,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "UNAUTHORIZED_ALLOWANCE"
     },
     "supporting_evidence": [],
@@ -3375,9 +3437,10 @@
           "applied_payment_cents": 1882600
         }
       ],
-      "claimed_deduction_cents": 136100,
+      "open_balance_cents": 136100,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 136100,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3414,7 +3477,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0014-1"
       ],
-      "claimed_deduction_cents": 112000,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -3425,9 +3488,10 @@
           "applied_payment_cents": 2633300
         }
       ],
-      "claimed_deduction_cents": 112000,
+      "open_balance_cents": 112000,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 112000,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3464,7 +3528,7 @@
       "invoice_references": [
         "INV-PARTIAL_PAYMENT_0015-1"
       ],
-      "claimed_deduction_cents": 160200,
+      "claimed_deduction_cents": 0,
       "claimed_reason": "PROMOTION"
     },
     "supporting_evidence": [],
@@ -3475,9 +3539,10 @@
           "applied_payment_cents": 1717700
         }
       ],
-      "claimed_deduction_cents": 160200,
+      "open_balance_cents": 160200,
+      "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
-      "unexplained_deduction_cents": 160200,
+      "unexplained_deduction_cents": 0,
       "status": "PARTIAL_REVIEW",
       "review_reason": "partial_payment_open_balance"
     },
@@ -3536,6 +3601,7 @@
           "applied_payment_cents": 1246200
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3597,6 +3663,7 @@
           "applied_payment_cents": 299800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3658,6 +3725,7 @@
           "applied_payment_cents": 1401300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3719,6 +3787,7 @@
           "applied_payment_cents": 376900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3780,6 +3849,7 @@
           "applied_payment_cents": 1394400
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3841,6 +3911,7 @@
           "applied_payment_cents": 2162800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3902,6 +3973,7 @@
           "applied_payment_cents": 2666600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -3963,6 +4035,7 @@
           "applied_payment_cents": 2487600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4024,6 +4097,7 @@
           "applied_payment_cents": 356300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4085,6 +4159,7 @@
           "applied_payment_cents": 1174100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4135,6 +4210,7 @@
           "applied_payment_cents": 1121500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4185,6 +4261,7 @@
           "applied_payment_cents": 2924000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4235,6 +4312,7 @@
           "applied_payment_cents": 1440000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4285,6 +4363,7 @@
           "applied_payment_cents": 1949500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4335,6 +4414,7 @@
           "applied_payment_cents": 1116500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4385,6 +4465,7 @@
           "applied_payment_cents": 512400
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4435,6 +4516,7 @@
           "applied_payment_cents": 851100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4485,6 +4567,7 @@
           "applied_payment_cents": 683800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4535,6 +4618,7 @@
           "applied_payment_cents": 2481700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4585,6 +4669,7 @@
           "applied_payment_cents": 1183500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4629,6 +4714,7 @@
           "applied_payment_cents": 520400
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4673,6 +4759,7 @@
           "applied_payment_cents": 533200
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4717,6 +4804,7 @@
           "applied_payment_cents": 315600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4761,6 +4849,7 @@
           "applied_payment_cents": 619400
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4805,6 +4894,7 @@
           "applied_payment_cents": 1046000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4849,6 +4939,7 @@
           "applied_payment_cents": 2997000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4893,6 +4984,7 @@
           "applied_payment_cents": 1093600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4937,6 +5029,7 @@
           "applied_payment_cents": 1369300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -4981,6 +5074,7 @@
           "applied_payment_cents": 1558100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5025,6 +5119,7 @@
           "applied_payment_cents": 1504800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5075,6 +5170,7 @@
           "applied_payment_cents": 593800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5125,6 +5221,7 @@
           "applied_payment_cents": 2047700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5175,6 +5272,7 @@
           "applied_payment_cents": 750000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5225,6 +5323,7 @@
           "applied_payment_cents": 1589500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5275,6 +5374,7 @@
           "applied_payment_cents": 2857900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5325,6 +5425,7 @@
           "applied_payment_cents": 288500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5375,6 +5476,7 @@
           "applied_payment_cents": 1002300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5425,6 +5527,7 @@
           "applied_payment_cents": 1228500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5475,6 +5578,7 @@
           "applied_payment_cents": 742600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5525,6 +5629,7 @@
           "applied_payment_cents": 265500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5575,6 +5680,7 @@
           "applied_payment_cents": 327700
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5625,6 +5731,7 @@
           "applied_payment_cents": 767600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5675,6 +5782,7 @@
           "applied_payment_cents": 2272900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5725,6 +5833,7 @@
           "applied_payment_cents": 2709400
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5775,6 +5884,7 @@
           "applied_payment_cents": 2779500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5825,6 +5935,7 @@
           "applied_payment_cents": 532300
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5875,6 +5986,7 @@
           "applied_payment_cents": 2286600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5925,6 +6037,7 @@
           "applied_payment_cents": 1941100
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -5975,6 +6088,7 @@
           "applied_payment_cents": 1490000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -6025,6 +6139,7 @@
           "applied_payment_cents": 1096900
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -6075,6 +6190,7 @@
           "applied_payment_cents": 285200
         }
       ],
+      "open_balance_cents": 103400,
       "claimed_deduction_cents": 103400,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 103400,
@@ -6125,6 +6241,7 @@
           "applied_payment_cents": 906100
         }
       ],
+      "open_balance_cents": 102400,
       "claimed_deduction_cents": 102400,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 102400,
@@ -6175,6 +6292,7 @@
           "applied_payment_cents": 326800
         }
       ],
+      "open_balance_cents": 123300,
       "claimed_deduction_cents": 123300,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 123300,
@@ -6225,6 +6343,7 @@
           "applied_payment_cents": 1132900
         }
       ],
+      "open_balance_cents": 112800,
       "claimed_deduction_cents": 112800,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 112800,
@@ -6275,6 +6394,7 @@
           "applied_payment_cents": 2825400
         }
       ],
+      "open_balance_cents": 66000,
       "claimed_deduction_cents": 66000,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 66000,
@@ -6325,6 +6445,7 @@
           "applied_payment_cents": 1292200
         }
       ],
+      "open_balance_cents": 123000,
       "claimed_deduction_cents": 123000,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 123000,
@@ -6375,6 +6496,7 @@
           "applied_payment_cents": 618100
         }
       ],
+      "open_balance_cents": 63400,
       "claimed_deduction_cents": 63400,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 63400,
@@ -6425,6 +6547,7 @@
           "applied_payment_cents": 2015900
         }
       ],
+      "open_balance_cents": 89100,
       "claimed_deduction_cents": 89100,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 89100,
@@ -6475,6 +6598,7 @@
           "applied_payment_cents": 1473400
         }
       ],
+      "open_balance_cents": 69700,
       "claimed_deduction_cents": 69700,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 69700,
@@ -6525,6 +6649,7 @@
           "applied_payment_cents": 1083800
         }
       ],
+      "open_balance_cents": 113600,
       "claimed_deduction_cents": 113600,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 113600,
@@ -6583,6 +6708,7 @@
           "applied_payment_cents": 1383500
         }
       ],
+      "open_balance_cents": 34100,
       "claimed_deduction_cents": 34100,
       "validated_deduction_cents": 34100,
       "unexplained_deduction_cents": 0,
@@ -6641,6 +6767,7 @@
           "applied_payment_cents": 599200
         }
       ],
+      "open_balance_cents": 41000,
       "claimed_deduction_cents": 41000,
       "validated_deduction_cents": 41000,
       "unexplained_deduction_cents": 0,
@@ -6699,6 +6826,7 @@
           "applied_payment_cents": 776000
         }
       ],
+      "open_balance_cents": 63500,
       "claimed_deduction_cents": 63500,
       "validated_deduction_cents": 31100,
       "unexplained_deduction_cents": 32400,
@@ -6757,6 +6885,7 @@
           "applied_payment_cents": 2390600
         }
       ],
+      "open_balance_cents": 98700,
       "claimed_deduction_cents": 98700,
       "validated_deduction_cents": 49000,
       "unexplained_deduction_cents": 49700,
@@ -6815,6 +6944,7 @@
           "applied_payment_cents": 455900
         }
       ],
+      "open_balance_cents": 36400,
       "claimed_deduction_cents": 36400,
       "validated_deduction_cents": 36400,
       "unexplained_deduction_cents": 0,
@@ -6873,6 +7003,7 @@
           "applied_payment_cents": 845100
         }
       ],
+      "open_balance_cents": 39600,
       "claimed_deduction_cents": 39600,
       "validated_deduction_cents": 39600,
       "unexplained_deduction_cents": 0,
@@ -6931,6 +7062,7 @@
           "applied_payment_cents": 1620700
         }
       ],
+      "open_balance_cents": 64800,
       "claimed_deduction_cents": 64800,
       "validated_deduction_cents": 10200,
       "unexplained_deduction_cents": 54600,
@@ -6989,6 +7121,7 @@
           "applied_payment_cents": 213700
         }
       ],
+      "open_balance_cents": 89900,
       "claimed_deduction_cents": 89900,
       "validated_deduction_cents": 49500,
       "unexplained_deduction_cents": 40400,
@@ -7047,6 +7180,7 @@
           "applied_payment_cents": 966400
         }
       ],
+      "open_balance_cents": 64800,
       "claimed_deduction_cents": 64800,
       "validated_deduction_cents": 58200,
       "unexplained_deduction_cents": 6600,
@@ -7105,6 +7239,7 @@
           "applied_payment_cents": 1082500
         }
       ],
+      "open_balance_cents": 58700,
       "claimed_deduction_cents": 58700,
       "validated_deduction_cents": 41100,
       "unexplained_deduction_cents": 17600,
@@ -7155,6 +7290,7 @@
           "applied_payment_cents": 1378800
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7205,6 +7341,7 @@
           "applied_payment_cents": 693500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7255,6 +7392,7 @@
           "applied_payment_cents": 2656500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7305,6 +7443,7 @@
           "applied_payment_cents": 559600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7355,6 +7494,7 @@
           "applied_payment_cents": 1801600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7405,6 +7545,7 @@
           "applied_payment_cents": 273600
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7455,6 +7596,7 @@
           "applied_payment_cents": 1483500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7505,6 +7647,7 @@
           "applied_payment_cents": 503000
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7555,6 +7698,7 @@
           "applied_payment_cents": 2793500
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7605,6 +7749,7 @@
           "applied_payment_cents": 1488200
         }
       ],
+      "open_balance_cents": 0,
       "claimed_deduction_cents": 0,
       "validated_deduction_cents": 0,
       "unexplained_deduction_cents": 0,
@@ -7663,9 +7808,10 @@
           "applied_payment_cents": 155200
         }
       ],
-      "claimed_deduction_cents": 99000,
+      "open_balance_cents": 99000,
+      "claimed_deduction_cents": 109000,
       "validated_deduction_cents": 25300,
-      "unexplained_deduction_cents": 73700,
+      "unexplained_deduction_cents": 83700,
       "status": "VALIDATION_FAILED",
       "review_reason": "stated_deduction_mismatch"
     },
@@ -7721,9 +7867,10 @@
           "applied_payment_cents": 967400
         }
       ],
-      "claimed_deduction_cents": 98800,
+      "open_balance_cents": 98800,
+      "claimed_deduction_cents": 108800,
       "validated_deduction_cents": 47500,
-      "unexplained_deduction_cents": 51300,
+      "unexplained_deduction_cents": 61300,
       "status": "VALIDATION_FAILED",
       "review_reason": "stated_deduction_mismatch"
     },
@@ -7779,9 +7926,10 @@
           "applied_payment_cents": 2710100
         }
       ],
-      "claimed_deduction_cents": 74300,
+      "open_balance_cents": 74300,
+      "claimed_deduction_cents": 84300,
       "validated_deduction_cents": 13900,
-      "unexplained_deduction_cents": 60400,
+      "unexplained_deduction_cents": 70400,
       "status": "VALIDATION_FAILED",
       "review_reason": "stated_deduction_mismatch"
     },
@@ -7837,9 +7985,10 @@
           "applied_payment_cents": 949900
         }
       ],
-      "claimed_deduction_cents": 72000,
+      "open_balance_cents": 72000,
+      "claimed_deduction_cents": 82000,
       "validated_deduction_cents": 58300,
-      "unexplained_deduction_cents": 13700,
+      "unexplained_deduction_cents": 23700,
       "status": "VALIDATION_FAILED",
       "review_reason": "stated_deduction_mismatch"
     },
@@ -7895,9 +8044,10 @@
           "applied_payment_cents": 1763700
         }
       ],
-      "claimed_deduction_cents": 120100,
+      "open_balance_cents": 120100,
+      "claimed_deduction_cents": 130100,
       "validated_deduction_cents": 45300,
-      "unexplained_deduction_cents": 74800,
+      "unexplained_deduction_cents": 84800,
       "status": "VALIDATION_FAILED",
       "review_reason": "stated_deduction_mismatch"
     },

@@ -237,21 +237,30 @@ def _actual_extraction_fields(evidence_dir: Path, case: dict[str, Any]) -> dict[
 
 
 def _reconcile_from_truth(case: dict[str, Any]):
-    if len(case["invoices"]) != 1 or case["payment"] is None:
+    if len(case["invoices"]) != 1 or case["payment"] is None or case["remittance"] is None:
         return None
     invoice = case["invoices"][0]
     payment = case["payment"]
     remittance = case["remittance"]
     support = case["supporting_evidence"]
-    validation_error = _validation_error(case)
-    review_reason = case["expected"]["review_reason"] if case["expected"]["status"] in {"PARTIAL_REVIEW", "REVIEW_REQUIRED"} else None
+    stated_deduction = Money(remittance["claimed_deduction_cents"])
+    authorized = Money(support[0]["authorized_cents"] if support else 0)
+    review_reason, validation_error = _semantic_review(
+        Money(invoice["total_cents"]),
+        Money(payment["received_cents"]),
+        stated_deduction,
+        authorized,
+        invoice["invoice_number"],
+        remittance["invoice_references"][0],
+    )
     return reconcile_payment(
         ReconciliationInput(
             invoice_number=invoice["invoice_number"],
             payment_reference=payment["payment_reference"],
             invoice_total=Money(invoice["total_cents"]),
             payment_received=Money(payment["received_cents"]),
-            authorized_promotion=Money(support[0]["authorized_cents"] if support else 0),
+            authorized_promotion=authorized,
+            stated_deduction=stated_deduction,
             review_reason=review_reason,
             validation_error=validation_error,
         )
@@ -260,25 +269,50 @@ def _reconcile_from_truth(case: dict[str, Any]):
 
 def _reconcile_from_extracted(case: dict[str, Any], actual: dict[str, dict[str, str]]):
     support = actual.get("promotion", {})
-    validation_error = _validation_error(case)
-    review_reason = case["expected"]["review_reason"] if case["expected"]["status"] in {"PARTIAL_REVIEW", "REVIEW_REQUIRED"} else None
+    invoice_total = Money.parse(actual["invoice"]["invoice_total"])
+    payment_received = Money.parse(actual["remittance"]["payment_received"])
+    stated_deduction = Money.parse(actual["remittance"].get("claimed_deduction", "0.00"))
+    authorized = Money.parse(support.get("authorized_promotion", "0.00"))
+    review_reason, validation_error = _semantic_review(
+        invoice_total,
+        payment_received,
+        stated_deduction,
+        authorized,
+        actual["invoice"]["invoice_number"],
+        actual["remittance"]["invoice_number"],
+    )
     return reconcile_payment(
         ReconciliationInput(
             invoice_number=actual["invoice"]["invoice_number"],
             payment_reference=actual["remittance"]["payment_reference"],
-            invoice_total=Money.parse(actual["invoice"]["invoice_total"]),
-            payment_received=Money.parse(actual["remittance"]["payment_received"]),
-            authorized_promotion=Money.parse(support.get("authorized_promotion", "0.00")),
+            invoice_total=invoice_total,
+            payment_received=payment_received,
+            authorized_promotion=authorized,
+            stated_deduction=stated_deduction,
             review_reason=review_reason,
             validation_error=validation_error,
         )
     )
 
 
-def _validation_error(case: dict[str, Any]) -> str | None:
-    if case["expected"]["status"] == "VALIDATION_FAILED":
-        return case["expected"]["review_reason"]
-    return None
+def _semantic_review(
+    invoice_total: Money,
+    payment_received: Money,
+    stated_deduction: Money,
+    authorized: Money,
+    invoice_number: str,
+    remittance_invoice_number: str,
+) -> tuple[str | None, str | None]:
+    short_pay = invoice_total - payment_received
+    if invoice_number != remittance_invoice_number:
+        return None, "invoice_reference_conflict"
+    if short_pay.amount_cents > 0 and stated_deduction.amount_cents not in {0, short_pay.amount_cents}:
+        return None, "stated_deduction_mismatch"
+    if short_pay.amount_cents > 0 and stated_deduction.amount_cents == 0:
+        return "partial_payment_open_balance", None
+    if short_pay.amount_cents > 0 and authorized.amount_cents == 0:
+        return "unauthorized_deduction", None
+    return None, None
 
 
 def _cents_to_decimal(amount_cents: int) -> str:

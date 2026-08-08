@@ -18,7 +18,8 @@ for (const file of requiredFiles) {
 const appSource = readFileSync("src/App.tsx", "utf8");
 for (const phrase of [
   "Review workspace",
-  "Process invoice and remittance PDFs",
+  "Process reconciliation PDFs",
+  "Promotion PDF optional",
   "Use sample documents",
   "Process documents",
   "Extraction evidence",

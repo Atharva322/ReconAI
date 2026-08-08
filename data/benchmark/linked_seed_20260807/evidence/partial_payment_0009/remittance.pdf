@@ -12,7 +12,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 5 0 obj
-<< /Length 382 >>
+<< /Length 380 >>
 stream
 BT
 /F1 18 Tf
@@ -30,7 +30,7 @@ BT
 0 -22 Td
 (Payment Received: $11,913.00) Tj
 0 -22 Td
-(Claimed Deduction: $923.00) Tj
+(Claimed Deduction: $0.00) Tj
 0 -22 Td
 (Deduction Reason: PROMOTION) Tj
 ET
@@ -47,5 +47,5 @@ xref
 trailer
 << /Size 6 /Root 1 0 R >>
 startxref
-744
+742
 %%EOF

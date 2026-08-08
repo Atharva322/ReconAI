@@ -44,9 +44,11 @@ def validate_linked_dataset(root: Path, seed: int = LINKED_DEFAULT_SEED) -> dict
         expected = case["expected"]
         invoice_total = sum(invoice["total_cents"] for invoice in case["invoices"])
         applied_cash = sum(allocation["applied_payment_cents"] for allocation in expected["invoice_allocations"])
-        claimed = max(invoice_total - applied_cash, 0)
-        if expected["claimed_deduction_cents"] != claimed:
-            errors.append(f"{case['case_id']}: claimed deduction mismatch")
+        open_balance = max(invoice_total - applied_cash, 0)
+        if expected["open_balance_cents"] != open_balance:
+            errors.append(f"{case['case_id']}: open balance mismatch")
+        if case["remittance"] and expected["claimed_deduction_cents"] != case["remittance"]["claimed_deduction_cents"]:
+            errors.append(f"{case['case_id']}: stated deduction mismatch")
         if expected["validated_deduction_cents"] > expected["claimed_deduction_cents"]:
             errors.append(f"{case['case_id']}: validated deduction exceeds claim")
         if expected["unexplained_deduction_cents"] != expected["claimed_deduction_cents"] - expected["validated_deduction_cents"]:

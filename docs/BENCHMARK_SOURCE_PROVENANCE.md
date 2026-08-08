@@ -21,4 +21,4 @@ No raw public dataset rows, invoice images, remittance documents or private fina
 
 ## Current Limitation
 
-The v2 benchmark includes one-payment-to-many-invoices and many-payments-to-one-invoice cases as generated truth, but the current production domain reconciler still scores one invoice/payment pair at a time. Those cardinality families are therefore reported as unsupported by the current reconciliation scorer rather than counted as successful.
+The v2 benchmark includes missing-remittance, one-payment-to-many-invoices and many-payments-to-one-invoice cases as generated truth, but the current production domain reconciler still scores complete one invoice/payment/remittance evidence sets. Those families are therefore reported as unsupported by the current reconciliation scorer rather than counted as successful.

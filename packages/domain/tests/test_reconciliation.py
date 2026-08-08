@@ -47,13 +47,15 @@ def test_partial_payment_routes_to_partial_review() -> None:
             invoice_total=Money.parse("8000.00"),
             payment_received=Money.parse("6000.00"),
             authorized_promotion=Money.parse("0.00"),
+            stated_deduction=Money.parse("0.00"),
             review_reason="partial_payment_open_balance",
         )
     )
 
     assert result.status == "PARTIAL_REVIEW"
     assert result.review_reason == "partial_payment_open_balance"
-    assert result.deduction.unexplained_deduction.amount_cents == 200_000
+    assert result.deduction.claimed_deduction.amount_cents == 0
+    assert result.deduction.unexplained_deduction.amount_cents == 0
 
 
 def test_validation_error_overrides_other_status() -> None:

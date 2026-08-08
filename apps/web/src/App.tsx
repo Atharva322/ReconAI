@@ -16,6 +16,7 @@ export function App() {
   const [comment, setComment] = useState("Dispute the unexplained over-claim.");
   const [invoiceFile, setInvoiceFile] = useState<File | null>(null);
   const [remittanceFile, setRemittanceFile] = useState<File | null>(null);
+  const [promotionFile, setPromotionFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,9 +66,9 @@ export function App() {
     try {
       const processed = useSample
         ? await processSampleDocuments()
-        : await processReviewDocuments(invoiceFile as File, remittanceFile as File);
+        : await processReviewDocuments(invoiceFile as File, remittanceFile as File, promotionFile);
       setReviewCase(processed);
-      setComment("Dispute the unexplained over-claim.");
+      setComment(getDefaultDecisionComment(processed));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to process submitted documents.");
     } finally {
@@ -128,7 +129,7 @@ export function App() {
 
       <section className="processing-panel" aria-label="Document processing">
         <div>
-          <h2>Process invoice and remittance PDFs</h2>
+          <h2>Process reconciliation PDFs</h2>
           <p>Digital PDF text extraction feeds deterministic reconciliation and the PostgreSQL-backed review workflow.</p>
         </div>
         <label>
@@ -138,6 +139,10 @@ export function App() {
         <label>
           <span>Remittance PDF</span>
           <input type="file" accept="application/pdf,.pdf" onChange={(event) => setRemittanceFile(event.target.files?.[0] ?? null)} />
+        </label>
+        <label>
+          <span>Promotion PDF optional</span>
+          <input type="file" accept="application/pdf,.pdf" onChange={(event) => setPromotionFile(event.target.files?.[0] ?? null)} />
         </label>
         <div className="processing-actions">
           <button className="secondary-button" disabled={isProcessing} onClick={() => void handleProcessDocuments(true)}>
@@ -169,7 +174,7 @@ export function App() {
           <div className="case-header">
             <div>
               <p>{reviewCase.tenant}</p>
-              <h2>Promotion over-claim review</h2>
+              <h2>{getReviewTitle(reviewCase)}</h2>
             </div>
             <span className={`status-badge status-${reviewCase.status.toLowerCase()}`}>{reviewCase.status}</span>
           </div>
@@ -177,8 +182,8 @@ export function App() {
           <div className="summary-strip">
             <Metric label="Invoice" value={formatMoney(reviewCase.invoice.total_cents)} />
             <Metric label="Payment" value={formatMoney(reviewCase.payment.received_cents)} />
-            <Metric label="Claimed deduction" value={formatMoney(reviewCase.deduction.claimed_cents)} />
-            <Metric label="Unexplained" value={formatMoney(reviewCase.deduction.unexplained_cents)} tone="alert" />
+            <Metric label={getClaimMetricLabel(reviewCase)} value={formatMoney(getClaimMetricValue(reviewCase))} />
+            <Metric label={getAlertMetricLabel(reviewCase)} value={formatMoney(getAlertMetricValue(reviewCase))} tone="alert" />
           </div>
 
           <div className="detail-layout">
@@ -201,9 +206,9 @@ export function App() {
               <div className="math-stack">
                 <LineItem label="Invoice total" value={reviewCase.invoice.total_cents} />
                 <LineItem label="Payment received" value={-reviewCase.payment.received_cents} />
-                <LineItem label="Claimed deduction" value={reviewCase.deduction.claimed_cents} emphasized />
+                <LineItem label={getClaimMetricLabel(reviewCase)} value={getClaimMetricValue(reviewCase)} emphasized />
                 <LineItem label="Authorized promotion" value={-reviewCase.promotion.authorized_cents} />
-                <LineItem label="Unexplained over-claim" value={reviewCase.deduction.unexplained_cents} alert />
+                <LineItem label={getAlertMetricLabel(reviewCase)} value={getAlertMetricValue(reviewCase)} alert />
               </div>
               <div className="rule-list" aria-label="Applied reconciliation rules">
                 {reviewCase.rule_codes.map((rule) => (
@@ -259,6 +264,64 @@ function Metric({ label, value, tone }: { label: string; value: string; tone?: "
       <strong>{value}</strong>
     </article>
   );
+}
+
+function getReviewTitle(reviewCase: ReviewCase): string {
+  if (reviewCase.review_reason === "partial_payment_open_balance") {
+    return "Partial payment review";
+  }
+  if (reviewCase.review_reason === "unexplained_deduction_amount" && reviewCase.promotion.authorized_cents > 0) {
+    return "Promotion over-claim review";
+  }
+  if (reviewCase.review_reason === "unauthorized_deduction") {
+    return "Unauthorized deduction review";
+  }
+  if (reviewCase.review_reason === "unexplained_deduction_amount") {
+    return "Unexplained deduction review";
+  }
+  if (["invoice_reference_conflict", "unknown_invoice_reference"].includes(reviewCase.review_reason)) {
+    return "Invoice reference review";
+  }
+  if (reviewCase.review_reason.includes("no text") || reviewCase.review_reason.includes("insufficient")) {
+    return "Insufficient evidence review";
+  }
+  return "Reconciliation exception review";
+}
+
+function getDefaultDecisionComment(reviewCase: ReviewCase): string {
+  if (reviewCase.review_reason === "partial_payment_open_balance") {
+    return "Review the remaining open balance before applying the payment.";
+  }
+  if (reviewCase.review_reason === "unexplained_deduction_amount" && reviewCase.promotion.authorized_cents > 0) {
+    return "Dispute the unsupported portion of the promotional deduction.";
+  }
+  if (reviewCase.review_reason === "unauthorized_deduction") {
+    return "Dispute the unsupported customer deduction.";
+  }
+  if (["invoice_reference_conflict", "unknown_invoice_reference"].includes(reviewCase.review_reason)) {
+    return "Review the invoice reference mismatch before applying the payment.";
+  }
+  return "Review the reconciliation exception before applying the payment.";
+}
+
+function getClaimMetricLabel(reviewCase: ReviewCase): string {
+  return reviewCase.review_reason === "partial_payment_open_balance" ? "Open balance" : "Claimed deduction";
+}
+
+function getClaimMetricValue(reviewCase: ReviewCase): number {
+  return reviewCase.review_reason === "partial_payment_open_balance"
+    ? reviewCase.deduction.open_balance_cents ?? reviewCase.invoice.total_cents - reviewCase.payment.received_cents
+    : reviewCase.deduction.claimed_cents;
+}
+
+function getAlertMetricLabel(reviewCase: ReviewCase): string {
+  return reviewCase.review_reason === "partial_payment_open_balance" ? "Open amount" : "Unexplained";
+}
+
+function getAlertMetricValue(reviewCase: ReviewCase): number {
+  return reviewCase.review_reason === "partial_payment_open_balance"
+    ? reviewCase.deduction.open_balance_cents ?? reviewCase.invoice.total_cents - reviewCase.payment.received_cents
+    : reviewCase.deduction.unexplained_cents;
 }
 
 function LineItem({

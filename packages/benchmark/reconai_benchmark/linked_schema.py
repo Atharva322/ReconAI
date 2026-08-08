@@ -48,6 +48,7 @@ class ExpectedAllocation:
 @dataclass(frozen=True)
 class LinkedExpected:
     invoice_allocations: tuple[ExpectedAllocation, ...]
+    open_balance_cents: int
     claimed_deduction_cents: int
     validated_deduction_cents: int
     unexplained_deduction_cents: int
@@ -75,8 +76,10 @@ class LinkedBenchmarkCase:
     def validate(self) -> None:
         invoice_total = sum(invoice.total_cents for invoice in self.invoices)
         applied_cash = sum(allocation.applied_payment_cents for allocation in self.expected.invoice_allocations)
-        if self.expected.claimed_deduction_cents != max(invoice_total - applied_cash, 0):
-            raise ValueError(f"{self.case_id}: claimed deduction arithmetic mismatch")
+        if self.expected.open_balance_cents != max(invoice_total - applied_cash, 0):
+            raise ValueError(f"{self.case_id}: open balance arithmetic mismatch")
+        if self.remittance and self.expected.claimed_deduction_cents != self.remittance.claimed_deduction_cents:
+            raise ValueError(f"{self.case_id}: stated deduction mismatch")
         if self.expected.validated_deduction_cents > self.expected.claimed_deduction_cents:
             raise ValueError(f"{self.case_id}: validated deduction exceeds claim")
         if (

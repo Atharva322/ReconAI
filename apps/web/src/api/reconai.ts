@@ -41,10 +41,13 @@ export function submitReviewDecision(
   });
 }
 
-export function processReviewDocuments(invoice: File, remittance: File): Promise<ReviewCase> {
+export function processReviewDocuments(invoice: File, remittance: File, promotion?: File | null): Promise<ReviewCase> {
   const formData = new FormData();
   formData.append("invoice", invoice);
   formData.append("remittance", remittance);
+  if (promotion) {
+    formData.append("promotion", promotion);
+  }
   return request<ReviewCase>("/api/v1/reconciliation/process", {
     method: "POST",
     body: formData

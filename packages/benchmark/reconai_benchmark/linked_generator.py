@@ -100,8 +100,8 @@ def _build_case(seed: int, family: str, index: int, split: str) -> LinkedBenchma
         status = "REVIEW_REQUIRED"
         review_reason = "unexplained_deduction_amount"
     elif family == "partial_payment":
-        claimed = _round_cents(rng.randint(500, 1800) * 100)
-        payment_received = invoice_total - claimed
+        open_balance = _round_cents(rng.randint(500, 1800) * 100)
+        payment_received = invoice_total - open_balance
         status = "PARTIAL_REVIEW"
         review_reason = "partial_payment_open_balance"
     elif family == "one_payment_multiple_invoices":
@@ -162,7 +162,7 @@ def _build_case(seed: int, family: str, index: int, split: str) -> LinkedBenchma
         if payment_present
         else None
     )
-    stated_claimed = claimed + (100_00 if family == "contradictory_evidence" else 0)
+    stated_claimed = 0 if family == "partial_payment" else claimed + (100_00 if family == "contradictory_evidence" else 0)
     remittance = (
         LinkedRemittance(
             invoice_references=invoice_refs,
@@ -191,9 +191,10 @@ def _build_case(seed: int, family: str, index: int, split: str) -> LinkedBenchma
     )
     expected = LinkedExpected(
         invoice_allocations=allocations,
-        claimed_deduction_cents=max(invoice_total - sum(a.applied_payment_cents for a in allocations), 0),
-        validated_deduction_cents=min(max(invoice_total - payment_received, 0), authorized),
-        unexplained_deduction_cents=max(max(invoice_total - payment_received, 0) - min(max(invoice_total - payment_received, 0), authorized), 0),
+        open_balance_cents=max(invoice_total - sum(a.applied_payment_cents for a in allocations), 0),
+        claimed_deduction_cents=stated_claimed if remittance_present else 0,
+        validated_deduction_cents=min(stated_claimed if remittance_present else 0, authorized),
+        unexplained_deduction_cents=max((stated_claimed if remittance_present else 0) - min(stated_claimed if remittance_present else 0, authorized), 0),
         status=status,  # type: ignore[arg-type]
         review_reason=review_reason,
     )
